@@ -6,12 +6,12 @@ import java.awt.Insets;
 
 import javax.swing.JButton;
 
-public class GreyButton extends JButton{
-	public GreyButton(String name){
+public class GreyButton extends JButton {
+	public GreyButton(String name) {
 		this.setText(name);
 		this.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.setBackground(Color.GRAY);
+		this.setBackground(Color.gray);
 		this.setOpaque(true);
-		this.setMargin(new Insets(5, 0, 5, 0));
+		this.setMargin(new Insets(1, 1, 1, 1));
 	}
 }

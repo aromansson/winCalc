@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.GridBagLayout;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -27,17 +26,17 @@ public class NormCalculator {
 	WhiteButton button0 = new WhiteButton("0");
 	GreyButton buttonPlus = new GreyButton("+");
 	GreyButton buttonEqual = new GreyButton("=");
-	WhiteButton buttonMinus = new WhiteButton("-");
-	WhiteButton buttonMultipl = new WhiteButton("*");
-	WhiteButton buttonDivide = new WhiteButton("/");
-	WhiteButton buttonPercent = new WhiteButton("%");
+	GreyButton buttonMinus = new GreyButton("-");
+	GreyButton buttonMultipl = new GreyButton("*");
+	GreyButton buttonDivide = new GreyButton("/");
+	GreyButton buttonPercent = new GreyButton("%");
 	WhiteButton buttonDot = new WhiteButton(".");
-	WhiteButton buttonOneX = new WhiteButton("1/x");
-	WhiteButton buttonSqrt = new WhiteButton("\u221A");
-	WhiteButton buttonPlusMinus = new WhiteButton("\u00B1");
-	WhiteButton buttonC = new WhiteButton("C");
-	WhiteButton buttonCE = new WhiteButton("CE");
-	WhiteButton buttonBack = new WhiteButton("\u2190");
+	GreyButton buttonOneX = new GreyButton("1/x");
+	GreyButton buttonSqrt = new GreyButton("\u221A");
+	GreyButton buttonPlusMinus = new GreyButton("\u00B1");
+	GreyButton buttonC = new GreyButton("C");
+	GreyButton buttonCE = new GreyButton("CE");
+	GreyButton buttonBack = new GreyButton("\u2190");
 	OpaqueButton buttonMC = new OpaqueButton("MC");
 	OpaqueButton buttonMR = new OpaqueButton("MR");
 	OpaqueButton buttonMS = new OpaqueButton("MS");
@@ -50,33 +49,44 @@ public class NormCalculator {
 		Constraints c = new Constraints();
 		gbl.setConstraints(inputField, c.get());
 		panel.add(inputField);
+
+		panel.add(buttonMC, c.nextRow());
+		panel.add(buttonMR, c.nextButton());
+		panel.add(buttonMS, c.nextButton());
+		panel.add(buttonMPlus, c.nextButton());
+		panel.add(buttonMMinus, c.lastRowButton());
+
+		panel.add(buttonBack, c.nextRow());
+		panel.add(buttonCE, c.nextButton());
+		panel.add(buttonC, c.nextButton());
+		panel.add(buttonPlusMinus, c.nextButton());
+		panel.add(buttonSqrt, c.lastRowButton());
+
+		panel.add(button7, c.nextRow());
+		panel.add(button8, c.nextButton());
+		panel.add(button9, c.nextButton());
+		panel.add(buttonDivide, c.nextButton());
+		panel.add(buttonPercent, c.lastRowButton());
+
+		panel.add(button4, c.nextRow());
+		panel.add(button5, c.nextButton());
+		panel.add(button6, c.nextButton());
+		panel.add(buttonMultipl, c.nextButton());
+		panel.add(buttonOneX, c.lastRowButton());
+
+		panel.add(button1, c.nextRow());
+		panel.add(button2, c.nextButton());
+		panel.add(button3, c.nextButton());
+		panel.add(buttonMinus, c.nextButton());
+		c.lastRowButton();
+		panel.add(buttonEqual, c.spanY());
+
 		c.nextRow();
-		panel.add(button0, c.get());
-//		helper.nextRow().setInsets(11, 5, 0, 5);
-//		panel.add(button1);
-//		helper.nextCell().gap(5);
-//		helper.nextCell().get();
-//		panel.add(button2);
-//		helper.nextCell().gap(5);
-//		panel.add(button3, helper.get());
-//		helper.nextRow();
-//		panel.add(button4, helper.get());
-//		helper.nextCell().gap(5);
-//		panel.add(button5, helper.get());
-		
-//		panel.add(button2);
-//		panel.add(button3);
-//		panel.add(button4);
-//		panel.add(button5);
-//		panel.add(button6);
-//		panel.add(button7);
-//		panel.add(button8);
-//		panel.add(button9);
-//		panel.add(button0);
-//		panel.add(buttonDot);
-//		panel.add(buttonPlus);
-//		panel.add(buttonEqual);
-		
+		panel.add(button0, c.span());
+		c.nextButton();
+		panel.add(buttonDot, c.nextButton());
+		panel.add(buttonPlus, c.nextButton());
+
 		MenuBar menuBar = new MenuBar();
 		frame.setJMenuBar(menuBar.initMenuBar());
 		frame.setContentPane(panel);
