@@ -36,9 +36,8 @@ public class MenuBar{
 		menu.add(view);
 		menu.add(edit);
 		menu.add(help);
-		view.add(Box.createRigidArea(new Dimension(100,10)));
-		edit.add(Box.createRigidArea(new Dimension(100,10)));
-		help.add(Box.createRigidArea(new Dimension(100,10)));
+//		edit.add(Box.createRigidArea(new Dimension(100,10)));
+//		help.add(Box.createRigidArea(new Dimension(100,10)));
 		return menu;
 	}
 }

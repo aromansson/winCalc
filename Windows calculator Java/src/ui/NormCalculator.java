@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -46,6 +47,8 @@ public class NormCalculator {
 	public void initNormCalculator() {
 
 		panel.setLayout(gbl);
+		panel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12)); //въебениваем поля по краям панели 
+						//(https://stackoverflow.com/questions/5854005/setting-horizontal-and-vertical-margins)
 		Constraints c = new Constraints();
 		gbl.setConstraints(inputField, c.get());
 		panel.add(inputField);

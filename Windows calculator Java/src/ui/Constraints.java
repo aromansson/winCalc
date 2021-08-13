@@ -25,7 +25,7 @@ public class Constraints {
 		c.weighty = 1.0f;
 		c.anchor = GridBagConstraints.NORTH;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.insets = new Insets(6, 11, 11, 11);
+		c.insets = new Insets(0, 0, 0, 0);
 		c.ipadx = 0;
 		c.ipady = 30;
 
@@ -44,8 +44,9 @@ public class Constraints {
 		c.gridwidth = 1;
 		gridheight = 1;
 		c.gridheight = gridheight;
-		// c.anchor = GridBagConstraints.CENTER;
-		c.insets = new Insets(2, 11, 2, 2);
+		c.insets.top = 6;
+		c.insets.right = 3;
+		c.insets.left = 0;
 		c.fill = GridBagConstraints.BOTH;
 		c.ipadx = 10;
 		c.ipady = 0;
@@ -56,8 +57,8 @@ public class Constraints {
 		gridx++;
 		c.gridx = gridx;
 		c.gridwidth = 1;
-		// c.anchor = GridBagConstraints.CENTER;
-		c.insets = new Insets(2, 2, 2, 2);
+		c.insets.left = 3;
+		c.insets.right = 3;
 		return c;
 	}
 
@@ -65,7 +66,7 @@ public class Constraints {
 		gridx++;
 		c.gridx = gridx;
 		c.anchor = GridBagConstraints.EAST;
-		c.insets = new Insets(2, 2, 2, 11);
+		c.insets.right = 0;
 		return c;
 	}
 
