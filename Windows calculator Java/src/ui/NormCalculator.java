@@ -11,7 +11,7 @@ public class NormCalculator {
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	GridBagLayout gbl = new GridBagLayout();
-	NormTextField field;
+	NormTextField field = new NormTextField();
 
 //	JTextField inputField = new JTextField(); // поле для ввода цифр
 	WhiteButton button1 = new WhiteButton("1");
@@ -50,7 +50,6 @@ public class NormCalculator {
 		// (https://stackoverflow.com/questions/5854005/setting-horizontal-and-vertical-margins)
 		Constraints c = new Constraints();
 //		inputField.setHorizontalAlignment(JTextField.RIGHT);
-		field = new NormTextField();
 		gbl.setConstraints(field, c.get());
 		panel.add(field);
 
