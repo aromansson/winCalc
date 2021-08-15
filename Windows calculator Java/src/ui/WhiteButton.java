@@ -11,10 +11,10 @@ public class WhiteButton extends JButton { // это будет класс дл�
 
 	public WhiteButton(String name) {
 		this.setText(name);
-		this.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		this.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 //		this.setPreferredSize(new Dimension(40, 40));
 		this.setBackground(Color.WHITE);
-		this.setMargin(new Insets(1, 1, 1, 1));
+		this.setMargin(new Insets(0, 0, 0, 0));
 	}
 
 }

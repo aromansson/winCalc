@@ -5,16 +5,15 @@ import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class NormCalculator {
 
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	GridBagLayout gbl = new GridBagLayout();
-	GridBagHelper helper = new GridBagHelper();
+	NormTextField field;
 
-	JTextField inputField = new JTextField(); // поле для ввода цифр
+//	JTextField inputField = new JTextField(); // поле для ввода цифр
 	WhiteButton button1 = new WhiteButton("1");
 	WhiteButton button2 = new WhiteButton("2");
 	WhiteButton button3 = new WhiteButton("3");
@@ -47,11 +46,13 @@ public class NormCalculator {
 	public void initNormCalculator() {
 
 		panel.setLayout(gbl);
-		panel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12)); //въебениваем поля по краям панели 
-						//(https://stackoverflow.com/questions/5854005/setting-horizontal-and-vertical-margins)
+		panel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12)); // въебениваем поля по краям панели
+		// (https://stackoverflow.com/questions/5854005/setting-horizontal-and-vertical-margins)
 		Constraints c = new Constraints();
-		gbl.setConstraints(inputField, c.get());
-		panel.add(inputField);
+//		inputField.setHorizontalAlignment(JTextField.RIGHT);
+		field = new NormTextField();
+		gbl.setConstraints(field, c.get());
+		panel.add(field);
 
 		panel.add(buttonMC, c.nextRow());
 		panel.add(buttonMR, c.nextButton());
