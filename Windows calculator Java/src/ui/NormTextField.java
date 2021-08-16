@@ -43,6 +43,7 @@ public class NormTextField extends JPanel {
 		mainRow.setFont(new Font("Consolas", Font.PLAIN, 20));
 		mainRow.setHorizontalAlignment(JTextField.RIGHT);
 		mainRow.setFocusable(false);
+		mainRow.setfo
 		mainRow.setBorder(null);
 		textPanel.add(upperRow);
 		textPanel.add(mainRow);
