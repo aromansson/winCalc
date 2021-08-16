@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
@@ -47,12 +48,12 @@ public class NormCalculator {
 
 		panel.setLayout(gbl);
 		panel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12)); // въебениваем поля по краям панели
+		panel.setBackground(new Color(217, 228, 241));
 		// (https://stackoverflow.com/questions/5854005/setting-horizontal-and-vertical-margins)
 		Constraints c = new Constraints();
-//		inputField.setHorizontalAlignment(JTextField.RIGHT);
 		gbl.setConstraints(field.iniTextField(), c.get());
 		panel.add(field.textPanel);
-				
+
 		panel.add(buttonMC, c.nextRow());
 		panel.add(buttonMR, c.nextButton());
 		panel.add(buttonMS, c.nextButton());
