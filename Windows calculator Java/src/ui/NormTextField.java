@@ -1,9 +1,12 @@
 package ui;
 
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class NormTextField extends Container {
 	Container textPanel;
@@ -17,19 +20,25 @@ public class NormTextField extends Container {
 	public Container iniTextField() {
 		textPanel = new Container();
 		textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-		upperRow = new JTextField();
-		mainRow = new JTextField();
-		// textField.setHorizontalAlignment(JTextField.RIGHT);
-		textPanel.add(mainRow);
-		textPanel.add(upperRow);
+		
+		upperRow = new JTextField("0", SwingConstants.RIGHT);
+		upperRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, upperRow.getMinimumSize().height));
 		upperRow.setHorizontalAlignment(JTextField.RIGHT);
+		upperRow.setFont(new Font("Consolas", Font.PLAIN, 12));
+		upperRow.setBorder(null);
+		upperRow.setFocusable(false);
+		
+		mainRow = new JTextField("0", SwingConstants.RIGHT);
+		mainRow.setPreferredSize(new Dimension(Integer.MAX_VALUE, mainRow.getPreferredSize().height));
+		mainRow.setFont(new Font("Consolas", Font.PLAIN, 20));
 		mainRow.setHorizontalAlignment(JTextField.RIGHT);
+		mainRow.setFocusable(false);
+		mainRow.setBorder(null);
+		textPanel.add(upperRow);
+		textPanel.add(mainRow);
 		System.out.println("rere");
 		return textPanel;
-		// еще нужно набить сюда ДжЛейблов (2 штуки)
-		// нижний будет для ввода чисел (макс. 16) и для вывода результата (макс, 21
-		// символ)
-		// верхний - для сохранения предыдущего числа или результата при нажатии
+		
 	}
 
 }

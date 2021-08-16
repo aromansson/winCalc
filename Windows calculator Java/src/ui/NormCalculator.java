@@ -30,7 +30,7 @@ public class NormCalculator {
 	GreyButton buttonMultipl = new GreyButton("*");
 	GreyButton buttonDivide = new GreyButton("/");
 	GreyButton buttonPercent = new GreyButton("%");
-	WhiteButton buttonDot = new WhiteButton(".");
+	WhiteButton buttonDot = new WhiteButton(",");
 	GreyButton buttonOneX = new GreyButton("1/x");
 	GreyButton buttonSqrt = new GreyButton("\u221A");
 	GreyButton buttonPlusMinus = new GreyButton("\u00B1");
@@ -50,9 +50,9 @@ public class NormCalculator {
 		// (https://stackoverflow.com/questions/5854005/setting-horizontal-and-vertical-margins)
 		Constraints c = new Constraints();
 //		inputField.setHorizontalAlignment(JTextField.RIGHT);
-		gbl.setConstraints(field, c.get());
-		panel.add(field);
-
+		gbl.setConstraints(field.iniTextField(), c.get());
+		panel.add(field.textPanel);
+				
 		panel.add(buttonMC, c.nextRow());
 		panel.add(buttonMR, c.nextButton());
 		panel.add(buttonMS, c.nextButton());

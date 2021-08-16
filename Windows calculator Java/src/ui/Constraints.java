@@ -27,7 +27,7 @@ public class Constraints {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0, 0, 0, 0);
 		c.ipadx = 0;
-		c.ipady = 30;
+		c.ipady = 5;
 
 	}
 
