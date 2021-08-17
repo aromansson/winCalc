@@ -2,12 +2,19 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.border.AbstractBorder;
 
 public class WhiteButton extends JButton { // это будет класс для изготовления
 											// обычных кнопок
+
+	@Override
+	public void addActionListener(ActionListener l) {
+		// TODO Auto-generated method stub
+		super.addActionListener(l);
+	}
 
 	public WhiteButton(String name) {
 		this.setText(name);
@@ -19,5 +26,7 @@ public class WhiteButton extends JButton { // это будет класс дл�
 		AbstractBorder brdr = new TextBubbleBorder(Color.gray, 1, 4, 0);
 		this.setBorder(brdr);
 	}
+	
+	
 
 }
