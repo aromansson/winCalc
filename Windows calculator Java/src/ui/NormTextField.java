@@ -16,12 +16,19 @@ public class NormTextField extends JPanel {
 	JPanel textPanel;
 	JTextField upperRow;
 	JTextField mainRow;
+	char[] mainArray;
+	int i;
 
 	NormTextField() {
 		iniTextField();
 	}
 
 	public Container iniTextField() {
+		mainArray = new char[16]; // array
+		mainArray[0] = '8'; // init first arrray element
+		mainArray[1] = '8'; // init first arrray element
+		i = 0;
+
 		textPanel = new JPanel();
 
 		textPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -39,16 +46,23 @@ public class NormTextField extends JPanel {
 		upperRow.setBorder(null);
 		upperRow.setFocusable(false);
 
-		mainRow = new JTextField("0", SwingConstants.RIGHT);
+		mainRow = new JTextField(mainArrayToMainRow(), SwingConstants.RIGHT);
 		mainRow.setFont(new Font("Consolas", Font.PLAIN, 20));
 		mainRow.setHorizontalAlignment(JTextField.RIGHT);
 		mainRow.setFocusable(false);
 		mainRow.setBorder(null);
 		textPanel.add(upperRow);
 		textPanel.add(mainRow);
-		System.out.println("rere");
+		System.out.println(mainArray.toString());
+//		mainArrayToMainRow();
 		return textPanel;
 
+	}
+
+	public String mainArrayToMainRow() {
+		StringBuilder sbf = new StringBuilder();
+		String mainString = new String(sbf.append(mainArray));
+		return mainString;
 	}
 
 }
