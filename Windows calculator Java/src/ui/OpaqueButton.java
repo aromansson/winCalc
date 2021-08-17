@@ -14,7 +14,7 @@ public class OpaqueButton extends JButton {
 		setContentAreaFilled(false);
 		this.setFocusable(false);
 		this.setMargin(new Insets(1, 1, 1, 1));
-		AbstractBorder brdr = new TextBubbleBorder(Color.BLACK, 1, 4, 0);
+		AbstractBorder brdr = new TextBubbleBorder(Color.gray, 1, 4, 0);
 		this.setBorder(brdr);
 	}
 

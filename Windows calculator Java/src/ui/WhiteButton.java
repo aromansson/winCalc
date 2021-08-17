@@ -16,7 +16,7 @@ public class WhiteButton extends JButton { // это будет класс дл�
 		this.setBackground(new Color(232, 238, 245));
 		this.setFocusable(false);
 		// this.setMargin(new Insets(0, 0, 0, 0));
-		AbstractBorder brdr = new TextBubbleBorder(Color.BLACK, 1, 4, 0);
+		AbstractBorder brdr = new TextBubbleBorder(Color.gray, 1, 4, 0);
 		this.setBorder(brdr);
 	}
 

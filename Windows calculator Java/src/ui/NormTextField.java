@@ -27,7 +27,7 @@ public class NormTextField extends JPanel {
 		textPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		textPanel.setBackground(Color.WHITE);
 
-		AbstractBorder brdr = new TextBubbleBorder(Color.BLACK, 1, 4, 0);
+		AbstractBorder brdr = new TextBubbleBorder(Color.gray, 1, 4, 0);
 		textPanel.setBorder(brdr);
 
 		textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
