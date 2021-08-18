@@ -16,7 +16,7 @@ public class Constraints {
 		System.out.println("we");
 	}
 
-	public void initCosntrains() { // инициализируем констрейнс
+	public void initCosntrains() { // инициализируем констрейнс, подходящий для первого элемента
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = GridBagConstraints.REMAINDER;
@@ -27,7 +27,7 @@ public class Constraints {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0, 0, 0, 0);
 		c.ipadx = 0;
-		c.ipady = 5;
+		c.ipady = 0;
 
 	}
 
@@ -44,7 +44,7 @@ public class Constraints {
 		c.gridwidth = 1;
 		gridheight = 1;
 		c.gridheight = gridheight;
-		c.insets.top = 6;
+		c.insets.top = 5;
 		c.insets.right = 3;
 		c.insets.left = 0;
 		c.fill = GridBagConstraints.BOTH;

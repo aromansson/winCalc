@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -9,14 +10,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 
-public class MenuBar {
+public class MenuBar extends JMenuBar {
 
 	public JMenuBar initMenuBar() {
 		JMenuBar menu = new JMenuBar(); // менюбар
 		JMenu view = new JMenu("Вид");
+
 		view.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		JRadioButtonMenuItem regular = new JRadioButtonMenuItem("Обычный");
 		regular.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		regular.setSelected(true);
 		view.add(regular);
 		JRadioButtonMenuItem engineer = new JRadioButtonMenuItem("Инженерный");
 		engineer.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -37,6 +40,7 @@ public class MenuBar {
 		view.add(new JSeparator());
 		JRadioButtonMenuItem usual = new JRadioButtonMenuItem("Обычный");
 		usual.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		usual.setSelected(true);
 		view.add(usual);
 		JRadioButtonMenuItem transNum = new JRadioButtonMenuItem("Преобразование единиц");
 		transNum.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -98,9 +102,8 @@ public class MenuBar {
 		menu.add(view);
 		menu.add(edit);
 		menu.add(help);
-		menu.setMaximumSize(new Dimension(Integer.MAX_VALUE, menu.getMinimumSize().height));
-//		edit.add(Box.createRigidArea(new Dimension(100,10)));
-//		help.add(Box.createRigidArea(new Dimension(100,10)));
+		menu.setPreferredSize(new Dimension(WIDTH, 19)); // уменьшаем высоту меню
 		return menu;
 	}
+
 }
