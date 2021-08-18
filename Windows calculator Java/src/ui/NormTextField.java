@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -29,23 +28,23 @@ public class NormTextField extends JPanel {
 
 	public Container iniTextField() {
 		mainArray = new char[17]; // array
-		mainArray[0] = '1'; // init first arrray element
-		mainArray[1] = '2'; // init first arrray element
-		mainArray[2] = '3'; // init first arrray element
-		mainArray[3] = '4'; // init first arrray element
-		mainArray[4] = '5'; // init first arrray element
-		mainArray[5] = '6'; // init first arrray element
-		mainArray[6] = '7'; // init first arrray element
-		mainArray[7] = '8'; // init first arrray element
-		mainArray[8] = '9'; // init first arrray element
-		mainArray[9] = '0'; // init first arrray element
-		mainArray[10] = '1'; // init first arrray element
-		mainArray[11] = '2'; // init first arrray element
-		mainArray[12] = '3'; // init first arrray element
-		mainArray[13] = '4'; // init first arrray element
-		mainArray[14] = '5'; // init first arrray element
-		mainArray[15] = '6'; // init first arrray element
-		mainArray[16] = '7'; // init first arrray element
+		mainArray[0] = '1'; // init first array element
+		mainArray[1] = '2'; // init first array element
+		mainArray[2] = '3'; // init first array element
+		mainArray[3] = '4'; // init first array element
+		mainArray[4] = '5'; // init first array element
+		mainArray[5] = '6'; // init first array element
+		mainArray[6] = '7'; // init first array element
+		mainArray[7] = '8'; // init first array element
+		mainArray[8] = '9'; // init first array element
+		mainArray[9] = '0'; // init first array element
+		mainArray[10] = '1'; // init first array element
+		mainArray[11] = '2'; // init first array element
+		mainArray[12] = '3'; // init first array element
+		mainArray[13] = '4'; // init first array element
+		mainArray[14] = '5'; // init first array element
+		mainArray[15] = '6'; // init first array element
+		mainArray[16] = '7'; // init first array element
 		i = 0; // arraylist iterator
 
 		textPanel = new JPanel();
@@ -79,7 +78,7 @@ public class NormTextField extends JPanel {
 
 	public String mainArrayToMainRow() {
 		StringBuilder sbf = new StringBuilder();
-		for (int i = 0; i < mainArray.length-1; i++) {
+		for (int i = 0; i < mainArray.length - 1; i++) {
 			if ((int) mainArray[i] == 0) {
 				sbf.append(mainArray[i]);
 				i++;
@@ -91,11 +90,11 @@ public class NormTextField extends JPanel {
 		mainString = new String(sbf.append(mainArray));
 		return mainString;
 	}
-	
+
 	public JTextField getMainRow() {
 		return mainRow;
 	}
-	
+
 	public void setMainRow() {
 		mainArrayToMainRow();
 		this.mainRow.setText(mainString);

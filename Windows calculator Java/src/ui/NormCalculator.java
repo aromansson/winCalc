@@ -13,7 +13,7 @@ public class NormCalculator {
 	JPanel panel = new JPanel();
 	GridBagLayout gbl = new GridBagLayout();
 	NormTextField field = new NormTextField(); // поле для ввода цифр обычного калькулятора
-	MenuBar menuBar; //экземпляр класса
+	MenuBar menuBar; // экземпляр класса
 
 	WhiteButton button1 = new WhiteButton("1");
 	WhiteButton button2 = new WhiteButton("2");
@@ -99,10 +99,9 @@ public class NormCalculator {
 		frame.setVisible(true); // делаем видимым
 		frame.setLocationRelativeTo(null);// не привязываем к краям экрана, пусть где-то в центре появляется
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// завершаем программу при закрытии формы
-		
-		//тестируем работу сеттера текста для основного поля калькулятора
+
+		// тестируем работу сеттера текста для основного поля калькулятора
 		field.setMainRow();
-		
-		
+
 	}
 }

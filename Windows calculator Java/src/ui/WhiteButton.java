@@ -2,21 +2,19 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.border.AbstractBorder;
 
 public class WhiteButton extends JButton { // это будет класс для изготовления
 											// обычных кнопок
-
-	@Override
-	public void addActionListener(ActionListener l) {
-		// TODO Auto-generated method stub
-		super.addActionListener(l);
-	}
+//	String nameString = null;
 
 	public WhiteButton(String name) {
+		// this.nameString = name;
+		this.setName(name);
 		this.setText(name);
 		this.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 //		this.setPreferredSize(new Dimension(40, 40));
@@ -25,8 +23,16 @@ public class WhiteButton extends JButton { // это будет класс дл�
 		// this.setMargin(new Insets(0, 0, 0, 0));
 		AbstractBorder brdr = new TextBubbleBorder(Color.gray, 1, 4, 0);
 		this.setBorder(brdr);
-	}
-	
-	
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println(e.getComponent().getName());
 
+			}
+		});
+	}
+
+//	public String getWBText() {
+	// return this.nameString;
+	// }
 }
