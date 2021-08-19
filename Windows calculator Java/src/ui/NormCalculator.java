@@ -101,7 +101,7 @@ public class NormCalculator {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// завершаем программу при закрытии формы
 
 		// тестируем работу сеттера текста для основного поля калькулятора
-		field.setMainRow(field.getMainArray());
+//		field.setMainRow(field.getMainArray());
 
 	}
 }

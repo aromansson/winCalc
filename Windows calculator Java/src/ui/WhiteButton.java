@@ -26,6 +26,8 @@ public class WhiteButton extends JButton { // это будет класс дл�
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				char[] ar = e.getComponent().getName().toCharArray();
+				NormTextField.addMainArrayElement(ar[0]);
 				System.out.println(e.getComponent().getName());
 
 			}

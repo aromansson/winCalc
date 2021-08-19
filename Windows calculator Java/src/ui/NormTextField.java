@@ -14,24 +14,23 @@ import javax.swing.border.EmptyBorder;
 
 public class NormTextField extends JPanel {
 
-
 	JPanel textPanel;
 	JTextField upperRow;
-	JTextField mainRow;
-	char[] mainArray;
-	int i;
+	static JTextField mainRow;
+	static char[] mainArray;
+	static int i;
+	static boolean comma;
 
 	NormTextField() {
 		iniTextField();
 	}
 
 	public Container iniTextField() {
-		mainArray = new char[17]; // array
-		mainArray[16] = '1'; // init first array element
-		mainArray[15] = '2'; // init first array element
-		
-		
-		i = 0; // arraylist iterator
+		mainArray = new char[8]; // array
+		mainArray[mainArray.length - 1] = '0'; // init first array element
+
+		i = mainArray.length - 1; // arraylist iterator
+		comma = false; // there is no comma in textfield
 
 		textPanel = new JPanel();
 
@@ -62,29 +61,27 @@ public class NormTextField extends JPanel {
 
 	}
 
-	
-
 	public JTextField getMainRow() {
 		return mainRow;
 	}
 
-	public void setMainRow(char[] c) {
-		
+	public static void setMainRow(char[] c) {
+
 		String string = new String(c);
-		this.mainRow.setText(string);
+		mainRow.setText(string);
 		for (int i = 0; i < mainArray.length; i++) {
-	//		if ((int) mainArray[i] == 0)
-				}
+			// if ((int) mainArray[i] == 0)
+		}
 	}
 
 	public char[] getMainArray() {
 		return mainArray;
 	}
-	
+
 	public void setMainArray(char[] mainArray) {
 		this.mainArray = mainArray;
 	}
-	
+
 //	public String mainArrayToMainRow() {
 //		StringBuilder sbf = new StringBuilder();
 //		for (int i = 0; i < mainArray.length - 1; i++) {
@@ -100,5 +97,116 @@ public class NormTextField extends JPanel {
 //		return mainString;
 //	}
 //	
-	public void addMainArrayElement
+	public static void addMainArrayElement(char c) {
+
+		try {
+			if (i >= 1) {
+				if (c != '0' && c != ',') {
+					mainArray[mainArray.length - 1] = c;
+					i--;
+				} else if (c == '0') {
+					if (i < mainArray.length - 1) {
+						mainArray[i] = c;
+						i--;
+					} else
+						mainArray[i] = c;
+				} else {
+					if (i == mainArray.length - 1) {
+						char[] newArray = new char[mainArray.length + 1];
+						mainArray = newArray;
+						mainArray[mainArray.length - 2] = '0';
+						i++;
+						mainArray[i] = c;
+						i--;
+						comma = true;
+					} else {
+						if (comma == false) {
+							char[] newArray = new char[mainArray.length + 1];
+							System.arraycopy(mainArray, 0, newArray, 0, mainArray.length);
+							mainArray = newArray; // move link
+							mainArray[i] = c;
+							i++;
+							comma = true;
+
+						} else {
+							// do nothing
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		StringBuilder sbf = new StringBuilder();
+		for (int i = mainArray.length - 1; i >= 1; i--) {
+			if ((int) mainArray[mainArray.length - 1] == 0) {
+				sbf.append(mainArray[i]);
+				i--;
+				System.out.println(sbf.append(mainArray[i]));
+			} else
+				i--;
+		}
+
+		setMainRow(mainArray);
+
+	}
+
+//	public static void addMainArrayElement(char c) {
+//
+//		try {
+//			if (i < mainArray.length) {
+//				if (c != 0 && c != ',') {
+//					mainArray[i] = c;
+//					i++;
+//				} else if (c == '0') {
+//					if (i > 0) {
+//						mainArray[i] = c;
+//						i++;
+//					} else
+//						mainArray[i] = c;
+//				} else {
+//					if (i == 0) {
+//						char[] newArray = new char[mainArray.length + 1];
+//						mainArray = newArray;
+//						mainArray[i] = '0';
+//						i++;
+//						mainArray[i] = c;
+//						i++;
+//						comma = true;
+//					} else {
+//						if (comma == false) {
+//							char[] newArray = new char[mainArray.length + 1];
+//							System.arraycopy(mainArray, 0, newArray, 0, mainArray.length);
+//							mainArray = newArray; // move link
+//							mainArray[i] = c;
+//							i++;
+//							comma = true;
+//
+//						} else {
+//							// do nothing
+//						}
+//					}
+//				}
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		StringBuilder sbf = new StringBuilder();
+//		for (int i = 0; i < mainArray.length - 1; i++) {
+//			if ((int) mainArray[i] == 0) {
+//				sbf.append(mainArray[i]);
+//				i++;
+//				System.out.println(sbf.append(mainArray[i]));
+//			} else
+//				i++;
+//		}
+//
+//		setMainRow(mainArray);
+//
+//	}
+
 }
