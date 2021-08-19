@@ -14,13 +14,12 @@ import javax.swing.border.EmptyBorder;
 
 public class NormTextField extends JPanel {
 
+
 	JPanel textPanel;
 	JTextField upperRow;
 	JTextField mainRow;
 	char[] mainArray;
 	int i;
-	String mainString;
-	String upperString;
 
 	NormTextField() {
 		iniTextField();
@@ -28,23 +27,10 @@ public class NormTextField extends JPanel {
 
 	public Container iniTextField() {
 		mainArray = new char[17]; // array
-		mainArray[0] = '1'; // init first array element
-		mainArray[1] = '2'; // init first array element
-		mainArray[2] = '3'; // init first array element
-		mainArray[3] = '4'; // init first array element
-		mainArray[4] = '5'; // init first array element
-		mainArray[5] = '6'; // init first array element
-		mainArray[6] = '7'; // init first array element
-		mainArray[7] = '8'; // init first array element
-		mainArray[8] = '9'; // init first array element
-		mainArray[9] = '0'; // init first array element
-		mainArray[10] = '1'; // init first array element
-		mainArray[11] = '2'; // init first array element
-		mainArray[12] = '3'; // init first array element
-		mainArray[13] = '4'; // init first array element
-		mainArray[14] = '5'; // init first array element
-		mainArray[15] = '6'; // init first array element
-		mainArray[16] = '7'; // init first array element
+		mainArray[16] = '1'; // init first array element
+		mainArray[15] = '2'; // init first array element
+		
+		
 		i = 0; // arraylist iterator
 
 		textPanel = new JPanel();
@@ -76,28 +62,43 @@ public class NormTextField extends JPanel {
 
 	}
 
-	public String mainArrayToMainRow() {
-		StringBuilder sbf = new StringBuilder();
-		for (int i = 0; i < mainArray.length - 1; i++) {
-			if ((int) mainArray[i] == 0) {
-				sbf.append(mainArray[i]);
-				i++;
-				System.out.println(sbf.append(mainArray[i]));
-			} else
-				i++;
-		}
-
-		mainString = new String(sbf.append(mainArray));
-		return mainString;
-	}
+	
 
 	public JTextField getMainRow() {
 		return mainRow;
 	}
 
-	public void setMainRow() {
-		mainArrayToMainRow();
-		this.mainRow.setText(mainString);
+	public void setMainRow(char[] c) {
+		
+		String string = new String(c);
+		this.mainRow.setText(string);
+		for (int i = 0; i < mainArray.length; i++) {
+	//		if ((int) mainArray[i] == 0)
+				}
 	}
 
+	public char[] getMainArray() {
+		return mainArray;
+	}
+	
+	public void setMainArray(char[] mainArray) {
+		this.mainArray = mainArray;
+	}
+	
+//	public String mainArrayToMainRow() {
+//		StringBuilder sbf = new StringBuilder();
+//		for (int i = 0; i < mainArray.length - 1; i++) {
+//			if ((int) mainArray[i] == 0) {
+//				sbf.append(mainArray[i]);
+//				i++;
+//				System.out.println(sbf.append(mainArray[i]));
+//			} else
+//				i++;
+//		}
+//
+//		mainString = new String(sbf.append(mainArray));
+//		return mainString;
+//	}
+//	
+	public void addMainArrayElement
 }
