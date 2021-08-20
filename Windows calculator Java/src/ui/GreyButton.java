@@ -25,6 +25,9 @@ public class GreyButton extends JButton {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				System.out.println(e.getComponent().getName());
+				if (condition) {
+					e.getComponent().getName() == "←";
+				}
 
 			}
 		});

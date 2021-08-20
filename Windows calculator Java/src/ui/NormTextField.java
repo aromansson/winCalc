@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.Iterator;
 
+import javax.security.auth.kerberos.KerberosCredMessage;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -27,7 +29,7 @@ public class NormTextField extends JPanel {
 
 	public Container iniTextField() {
 		mainArray = new char[8]; // array
-		mainArray[mainArray.length - 1] = '0'; // init first array element
+		mainArray[mainArray.length - 1] = '0'; // init last array element
 
 		i = mainArray.length - 1; // arraylist iterator
 		comma = false; // there is no comma in textfield
@@ -74,7 +76,7 @@ public class NormTextField extends JPanel {
 		}
 	}
 
-	public char[] getMainArray() {
+	public static char[] getMainArray() {
 		return mainArray;
 	}
 
@@ -82,69 +84,66 @@ public class NormTextField extends JPanel {
 		this.mainArray = mainArray;
 	}
 
-//	public String mainArrayToMainRow() {
-//		StringBuilder sbf = new StringBuilder();
-//		for (int i = 0; i < mainArray.length - 1; i++) {
-//			if ((int) mainArray[i] == 0) {
-//				sbf.append(mainArray[i]);
-//				i++;
-//				System.out.println(sbf.append(mainArray[i]));
-//			} else
-//				i++;
-//		}
-//
-//		mainString = new String(sbf.append(mainArray));
-//		return mainString;
-//	}
-//	
-	public static void addMainArrayElement(char c) {
-
+	public static void addSymbol(char c) {
 		try {
-			if (i >= 1) {
-				if (c != '0' && c != ',') {
-					mainArray[mainArray.length - 1] = c;
-					i--;
-				} else if (c == '0') {
-					if (i < mainArray.length - 1) {
-						mainArray[i] = c;
-						i--;
-					} else
-						mainArray[i] = c;
-				} else {
-					if (i == mainArray.length - 1) {
-						char[] newArray = new char[mainArray.length + 1];
-						mainArray = newArray;
-						mainArray[mainArray.length - 2] = '0';
-						i++;
-						mainArray[i] = c;
-						i--;
-						comma = true;
-					} else {
-						if (comma == false) {
-							char[] newArray = new char[mainArray.length + 1];
-							System.arraycopy(mainArray, 0, newArray, 0, mainArray.length);
-							mainArray = newArray; // move link
-							mainArray[i] = c;
-							i++;
-							comma = true;
+			if (i >=0 ) { //если счетчик массива больше или равен единице (идем с конца в начало)
+				if (c != '0' && c != ',') { //если мы вводим цифру от 1 до 9
+					if (i == mainArray.length - 1) { //если мы вводим в последнее число массива
+						mainArray[mainArray.length - 1] = c; //то присваиваем это значение последнему элементу массива
+						i--; //уменьшаем счетчик массива на единицу
+					} else { //если же это не последнее число
+						for(int k = i; k < mainArray.length - 1; k++) { //пробегаем по массиву от вводимого элемента до конца
+							mainArray[k]= mainArray[k+1]; //записываем последующее значение в предыдущее 
+						}
+							mainArray[mainArray.length - 1] = c; //а последнему элементу присваиваем вводимое нами число
+							i--; //уменьшаем счетчик массива на единицу
+					}
+				} else if (c == '0') { //если мы вводим 0
+					if (i == mainArray.length - 1) { //если вводим в последнее значение массива
+						mainArray[i] = c; //просто заново присваиваем туда 0 и не меняем счетчик.
+						//по факту наверное можно будет удалить эту строку и ничего не делать
+					} else { //иначе поступаем точно так же, как в предыдущем случае
+						for(int k = i; k < mainArray.length - 1; k++) { //пробегаем по массиву от вводимого элемента до конца
+							mainArray[k]= mainArray[k+1]; //записываем последующее значение в предыдущее 
+						}
+							mainArray[mainArray.length - 1] = c; //а последнему элементу присваиваем вводимое нами число
+							i--; //уменьшаем счетчик массива на единицу
+					}
+				} else { //если вводим запятую
+					if (i == mainArray.length - 1) { //вводим в последнее значение (это первый введенный нами символ
+						char[] newArray = new char[mainArray.length + 1]; //создаем новый массив на единицу длиннее нашего
+						mainArray = newArray; //присваиваем ссылку нашего массива на новый
+						mainArray[i] = '0'; //ставим в предпоследнее значение 0
+				//		i++; //увеличиваем счетчик
+						mainArray[i+1] = c; //сюда заносим вводимую нами запятую
+						i--; //уменьшаем значение счетчика на 2 единицы
+						comma = true; //меняем логическое значение, чтобы в следующий раз запятую не добавить
+					} else { //если вводим не в первое значение
+						if (comma == false) { //если запятую еще можно ставить
+							char[] newArray = new char[mainArray.length + 1]; //также создаем новый массив на единицу длиннее нашего
+							for (int k = 0; k < mainArray.length; k++) { // циклом копируем значения
+								newArray[k] = mainArray[k];
+							}
+							mainArray = newArray; //присваиваем ссылку нашего массива на новый
+							mainArray[mainArray.length -1] = c; 
+							comma = true; //меняем логическое значение, чтобы в следующий раз запятую не добавить
 
 						} else {
-							// do nothing
+							// тупо морозимся
 						}
 					}
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println("ну обосрались, бывает");
 			e.printStackTrace();
 		}
 
 		StringBuilder sbf = new StringBuilder();
-		for (int i = mainArray.length - 1; i >= 1; i--) {
+		for (int i = mainArray.length - 1; i >= 0; i--) {
 			if ((int) mainArray[mainArray.length - 1] == 0) {
 				sbf.append(mainArray[i]);
 				i--;
-				System.out.println(sbf.append(mainArray[i]));
 			} else
 				i--;
 		}
@@ -153,60 +152,13 @@ public class NormTextField extends JPanel {
 
 	}
 
-//	public static void addMainArrayElement(char c) {
-//
-//		try {
-//			if (i < mainArray.length) {
-//				if (c != 0 && c != ',') {
-//					mainArray[i] = c;
-//					i++;
-//				} else if (c == '0') {
-//					if (i > 0) {
-//						mainArray[i] = c;
-//						i++;
-//					} else
-//						mainArray[i] = c;
-//				} else {
-//					if (i == 0) {
-//						char[] newArray = new char[mainArray.length + 1];
-//						mainArray = newArray;
-//						mainArray[i] = '0';
-//						i++;
-//						mainArray[i] = c;
-//						i++;
-//						comma = true;
-//					} else {
-//						if (comma == false) {
-//							char[] newArray = new char[mainArray.length + 1];
-//							System.arraycopy(mainArray, 0, newArray, 0, mainArray.length);
-//							mainArray = newArray; // move link
-//							mainArray[i] = c;
-//							i++;
-//							comma = true;
-//
-//						} else {
-//							// do nothing
-//						}
-//					}
-//				}
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		StringBuilder sbf = new StringBuilder();
-//		for (int i = 0; i < mainArray.length - 1; i++) {
-//			if ((int) mainArray[i] == 0) {
-//				sbf.append(mainArray[i]);
-//				i++;
-//				System.out.println(sbf.append(mainArray[i]));
-//			} else
-//				i++;
-//		}
-//
-//		setMainRow(mainArray);
-//
-//	}
-
+	public static void removeSymbol(char c) {
+		// char[] array = getMainArray();
+		if (mainArray[mainArray.length - 2] == (Character) null) {
+			if (mainArray[mainArray.length - 1] != '0') {
+				mainArray[mainArray.length - 1] = '0';
+				setMainRow(mainArray);
+			}
+		}
+	}
 }
