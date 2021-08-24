@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.Iterator;
 
-import javax.security.auth.kerberos.KerberosCredMessage;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -22,13 +20,15 @@ public class NormTextField extends JPanel {
 	static char[] mainArray;
 	static int i;
 	static boolean comma;
+	static final int MAINROW_SIZE = 8;
+	static char[] memory = 0;
 
 	NormTextField() {
 		iniTextField();
 	}
 
 	public Container iniTextField() {
-		mainArray = new char[8]; // array
+		mainArray = new char[MAINROW_SIZE]; // array
 		mainArray[mainArray.length - 1] = '0'; // init last array element
 
 		i = mainArray.length - 1; // arraylist iterator
@@ -58,7 +58,6 @@ public class NormTextField extends JPanel {
 		mainRow.setBorder(null);
 		textPanel.add(upperRow);
 		textPanel.add(mainRow);
-//		mainArrayToMainRow();
 		return textPanel;
 
 	}
@@ -71,9 +70,6 @@ public class NormTextField extends JPanel {
 
 		String string = new String(c);
 		mainRow.setText(string);
-		for (int i = 0; i < mainArray.length; i++) {
-			// if ((int) mainArray[i] == 0)
-		}
 	}
 
 	public static char[] getMainArray() {
@@ -86,79 +82,109 @@ public class NormTextField extends JPanel {
 
 	public static void addSymbol(char c) {
 		try {
-			if (i >=0 ) { //если счетчик массива больше или равен единице (идем с конца в начало)
-				if (c != '0' && c != ',') { //если мы вводим цифру от 1 до 9
-					if (i == mainArray.length - 1) { //если мы вводим в последнее число массива
-						mainArray[mainArray.length - 1] = c; //то присваиваем это значение последнему элементу массива
-						i--; //уменьшаем счетчик массива на единицу
-					} else { //если же это не последнее число
-						for(int k = i; k < mainArray.length - 1; k++) { //пробегаем по массиву от вводимого элемента до конца
-							mainArray[k]= mainArray[k+1]; //записываем последующее значение в предыдущее 
-						}
-							mainArray[mainArray.length - 1] = c; //а последнему элементу присваиваем вводимое нами число
-							i--; //уменьшаем счетчик массива на единицу
+			if (i == mainArray.length - 1) { // если вводим в последний символ массива
+				if (mainArray[i] == '0') { // при этом последний символ равен нулю
+					if (c == ',') { // если вводим запятую
+						char[] newArray = new char[mainArray.length + 1]; // создаем новый массив на единицу длиннее
+						mainArray = newArray; // присваиваем ссылку нашего массива на новый
+						mainArray[i] = '0'; // ставим в предпоследнее значение 0
+						mainArray[i + 1] = c; // сюда заносим вводимую нами запятую
+						comma = true; // меняем логическое значение, чтобы в следующий раз запятую не добавить
+					} else { // любое другое число
+						mainArray[mainArray.length - 1] = c; // меняем ноль на вводимую цифру
 					}
-				} else if (c == '0') { //если мы вводим 0
-					if (i == mainArray.length - 1) { //если вводим в последнее значение массива
-						mainArray[i] = c; //просто заново присваиваем туда 0 и не меняем счетчик.
-						//по факту наверное можно будет удалить эту строку и ничего не делать
-					} else { //иначе поступаем точно так же, как в предыдущем случае
-						for(int k = i; k < mainArray.length - 1; k++) { //пробегаем по массиву от вводимого элемента до конца
-							mainArray[k]= mainArray[k+1]; //записываем последующее значение в предыдущее 
-						}
-							mainArray[mainArray.length - 1] = c; //а последнему элементу присваиваем вводимое нами число
-							i--; //уменьшаем счетчик массива на единицу
-					}
-				} else { //если вводим запятую
-					if (i == mainArray.length - 1) { //вводим в последнее значение (это первый введенный нами символ
-						char[] newArray = new char[mainArray.length + 1]; //создаем новый массив на единицу длиннее нашего
-						mainArray = newArray; //присваиваем ссылку нашего массива на новый
-						mainArray[i] = '0'; //ставим в предпоследнее значение 0
-				//		i++; //увеличиваем счетчик
-						mainArray[i+1] = c; //сюда заносим вводимую нами запятую
-						i--; //уменьшаем значение счетчика на 2 единицы
-						comma = true; //меняем логическое значение, чтобы в следующий раз запятую не добавить
-					} else { //если вводим не в первое значение
-						if (comma == false) { //если запятую еще можно ставить
-							char[] newArray = new char[mainArray.length + 1]; //также создаем новый массив на единицу длиннее нашего
-							for (int k = 0; k < mainArray.length; k++) { // циклом копируем значения
-								newArray[k] = mainArray[k];
-							}
-							mainArray = newArray; //присваиваем ссылку нашего массива на новый
-							mainArray[mainArray.length -1] = c; 
-							comma = true; //меняем логическое значение, чтобы в следующий раз запятую не добавить
-
-						} else {
-							// тупо морозимся
-						}
+				} else { // если последний символ в массиве не ноль
+					if (c == ',' && comma == false) { // если вводим запятую
+						char[] newArray = new char[mainArray.length + 1]; // создаем новый массив на единицу длиннее
+						newArray[i] = mainArray[i]; // переносим туда наше последнее значение(оно будет предпоследним)
+						newArray[i + 1] = c; // в последнее вносим запятую
+						mainArray = newArray; // присваиваем ссылку нашего массива на новый
+						comma = true; // меняем логическое значение, чтобы в следующий раз запятую не добавить
+					} else { // если вводим любую цифру
+						mainArray[i - 1] = mainArray[i]; // последний символ ставим в предпоследний
+						mainArray[i] = c; // в последний ставим 0 (который мы вводим)
+						i--;
 					}
 				}
+			} else if (i < mainArray.length - 1 && i > 0) { // если счетчик массива находится между 0 и концом массива
+				if (c == ',') { // вводим запятую
+					if (comma == false) { // и ее можно вводить
+						char[] newArray = new char[mainArray.length + 1]; // создаем новый массив на единицу длиннее
+						for (int k = 0; k < mainArray.length; k++) { // бежим по массиву циклом
+							newArray[k] = mainArray[k]; // переносим все значения из старого в новый
+						}
+						newArray[newArray.length - 1] = c; // в последнее вносим запятую
+						mainArray = newArray; // присваиваем ссылку нашего массива на новый
+						comma = true; // меняем логическое значение, чтобы в следующий раз запятую не добавить
+					} else {
+						// если вводить нельзя, то ничего не делаем
+					}
+				} else { // если вводим какие-то цифры
+					for (int k = i; k < mainArray.length; k++) { // бежим по главному мкссиву массиву
+						mainArray[k - 1] = mainArray[k]; // меняем предыдущие значения на последующие
+					}
+					mainArray[mainArray.length - 1] = c; // в последний ставим вводимый символ
+					i--; // уменьшаем счетчик И
+				}
+			} else {
+				// если И = 0, то ничего не делаем
 			}
 		} catch (Exception e) {
 			System.out.println("ну обосрались, бывает");
 			e.printStackTrace();
 		}
 
-		StringBuilder sbf = new StringBuilder();
-		for (int i = mainArray.length - 1; i >= 0; i--) {
-			if ((int) mainArray[mainArray.length - 1] == 0) {
-				sbf.append(mainArray[i]);
-				i--;
-			} else
-				i--;
-		}
+		setMainRow(mainArray);
+		System.out.println("длина массива равна " + mainArray.length + ", а И = " + i);
 
+	}
+
+	public static void removeSymbol() {
+		System.out.println("mainArray.length = " + mainArray.length);
+		System.out.println("i = " + i + " mainArray[i] = " + mainArray[i]);
+		if (i == mainArray.length - 1) {
+			mainArray[i] = '0';
+		} else {
+			if (mainArray[mainArray.length - 1] == ',') {
+				char[] newArray = new char[mainArray.length - 1];
+				for (int k = i; k < newArray.length; k++) {
+					newArray[k] = mainArray[k];
+				}
+				mainArray = newArray;
+				comma = false;
+			} else {
+				for (int k = mainArray.length - 1; k > i; k--) {
+					mainArray[k] = mainArray[k - 1];
+				}
+				mainArray[i] = 0;
+				i++;
+			}
+		}
+		setMainRow(mainArray);
+		System.out.println("длина массива равна " + mainArray.length + ", а И = " + i);
+	}
+
+	public static void clearCE() {
+		char[] newArray = new char[MAINROW_SIZE];
+		for (int k = i; k < newArray.length; k++) {
+			newArray[k] = 0;
+		}
+		mainArray = newArray;
+		i = mainArray.length - 1;
+		mainArray[i] = '0';
+		comma = false;
 		setMainRow(mainArray);
 
 	}
 
-	public static void removeSymbol(char c) {
-		// char[] array = getMainArray();
-		if (mainArray[mainArray.length - 2] == (Character) null) {
-			if (mainArray[mainArray.length - 1] != '0') {
-				mainArray[mainArray.length - 1] = '0';
-				setMainRow(mainArray);
-			}
-		}
+	public static char[] getMemory() { // получение памяти и отображение ее в текстовом поле
+
+		return memory;
 	}
+
+	public static void setMemory(char[] array) {
+		getMainArray();
+		memory = getMainArray();
+	}
+
 }

@@ -97,11 +97,8 @@ public class NormCalculator {
 		frame.setSize(228, 322); // размер фрейма
 		frame.setResizable(false); // не разрешаем менять размер
 		frame.setVisible(true); // делаем видимым
+		frame.setTitle("Калькулятор");
 		frame.setLocationRelativeTo(null);// не привязываем к краям экрана, пусть где-то в центре появляется
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// завершаем программу при закрытии формы
-
-		// тестируем работу сеттера текста для основного поля калькулятора
-//		field.setMainRow(field.getMainArray());
-
 	}
 }
