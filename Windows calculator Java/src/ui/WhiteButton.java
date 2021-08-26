@@ -2,10 +2,13 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 import javax.swing.border.AbstractBorder;
 
 public class WhiteButton extends JButton { // это будет класс для изготовления
@@ -32,6 +35,8 @@ public class WhiteButton extends JButton { // это будет класс дл�
 
 			}
 		});
+		
+		
 	}
 
 //	public String getWBText() {

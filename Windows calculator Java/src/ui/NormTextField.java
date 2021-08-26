@@ -21,7 +21,7 @@ public class NormTextField extends JPanel {
 	static int i;
 	static boolean comma;
 	static final int MAINROW_SIZE = 8;
-	static char[] memory = 0;
+	static char[] memory = new char[9];
 
 	NormTextField() {
 		iniTextField();

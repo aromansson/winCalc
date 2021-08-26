@@ -2,6 +2,8 @@ package ui;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -100,5 +102,91 @@ public class NormCalculator {
 		frame.setTitle("Калькулятор");
 		frame.setLocationRelativeTo(null);// не привязываем к краям экрана, пусть где-то в центре появляется
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// завершаем программу при закрытии формы
+		
+		
+		frame.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch (e.getKeyCode()) {
+				case  KeyEvent.VK_NUMPAD9:
+					NormTextField.addSymbol('9');
+					break;
+				case  KeyEvent.VK_NUMPAD8:
+					NormTextField.addSymbol('8');
+					break;
+				case  KeyEvent.VK_NUMPAD7:
+					NormTextField.addSymbol('7');
+					break;
+				case  KeyEvent.VK_NUMPAD6:
+					NormTextField.addSymbol('6');
+					break;
+				case  KeyEvent.VK_NUMPAD5:
+					NormTextField.addSymbol('5');
+					break;
+				case  KeyEvent.VK_NUMPAD4:
+					NormTextField.addSymbol('4');
+					break;
+				case  KeyEvent.VK_NUMPAD3:
+					NormTextField.addSymbol('3');
+					break;
+				case  KeyEvent.VK_NUMPAD2:
+					NormTextField.addSymbol('2');
+					break;
+				case  KeyEvent.VK_NUMPAD1:
+					NormTextField.addSymbol('1');
+					break;
+				case  KeyEvent.VK_NUMPAD0:
+					NormTextField.addSymbol('0');
+					break;
+				case  KeyEvent.VK_DECIMAL:
+					NormTextField.addSymbol(',');
+					break;
+				case  KeyEvent.VK_9:
+					NormTextField.addSymbol('9');
+					break;
+				case  KeyEvent.VK_8:
+					NormTextField.addSymbol('8');
+					break;
+				case  KeyEvent.VK_7:
+					NormTextField.addSymbol('7');
+					break;
+				case  KeyEvent.VK_6:
+					NormTextField.addSymbol('6');
+					break;
+				case  KeyEvent.VK_5:
+					NormTextField.addSymbol('5');
+					break;
+				case  KeyEvent.VK_4:
+					NormTextField.addSymbol('4');
+					break;
+				case  KeyEvent.VK_3:
+					NormTextField.addSymbol('3');
+					break;
+				case  KeyEvent.VK_2:
+					NormTextField.addSymbol('2');
+					break;
+				case  KeyEvent.VK_1:
+					NormTextField.addSymbol('1');
+					break;
+				case  KeyEvent.VK_0:
+					NormTextField.addSymbol('0');
+					break;
+				case  KeyEvent.VK_COMMA:
+					NormTextField.addSymbol(',');
+					break;
+				case  KeyEvent.	VK_ESCAPE:
+					NormTextField.clearCE();
+					break;
+				case  KeyEvent.	VK_BACK_SPACE:
+					NormTextField.removeSymbol();
+					break;
+
+				default:
+					break;
+				}
+			}
+		
+		});
 	}
 }
