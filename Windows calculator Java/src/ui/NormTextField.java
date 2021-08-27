@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -21,7 +22,8 @@ public class NormTextField extends JPanel {
 	static int i;
 	static boolean comma;
 	static final int MAINROW_SIZE = 8;
-	static char[] memory = new char[9];
+	static char[] memory = new char[9]; //здесь необходимо разобраться, как правильнее организовать массив памяти
+	static ArrayList<char[]> calculatorStack; 
 
 	NormTextField() {
 		iniTextField();
