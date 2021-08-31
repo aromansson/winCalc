@@ -24,9 +24,36 @@ public class OpaqueButton extends JButton {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				System.out.println(e.getComponent().getName());
+				switch (e.getComponent().getName()) {
+				case "MC":
+					NormTextField.memoryClear();
+					NormTextField.resetMainArray();
+					break;
+				case "MR":
+					NormTextField.memoryRecall();
+					NormTextField.resetMainArray();
+					break;
+				case "MS":
+					NormTextField.memorySet(NormTextField.mainRow.getText());
+					NormTextField.resetMainArray();
+					break;
+				case "M+":
+					NormTextField.memoryPlus(NormTextField.mainRow.getText());
+					NormTextField.resetMainArray();
+					break;
+				case "M-":
+					NormTextField.memoryMinus(NormTextField.mainRow.getText());
+					break;
 
+				default:
+					break;
+				}
 			}
 		});
+		
+		//надо допилить знак +/- и поставить переключатель как для запятой, чтобы 
+		//при наличии знака "минус" у числа знак операции менялся на противоположный
+		//хотя, если разбирать стек, может там это реализовать.
 	}
 
 }

@@ -2,10 +2,13 @@ package ui;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -17,6 +20,7 @@ public class NormCalculator {
 	NormTextField field = new NormTextField(); // поле для ввода цифр обычного калькулятора
 	MenuBar menuBar; // экземпляр класса
 
+	//инициализируем все кнопки
 	WhiteButton button1 = new WhiteButton("1");
 	WhiteButton button2 = new WhiteButton("2");
 	WhiteButton button3 = new WhiteButton("3");
@@ -33,7 +37,7 @@ public class NormCalculator {
 	GreyButton buttonMultipl = new GreyButton("*");
 	GreyButton buttonDivide = new GreyButton("/");
 	GreyButton buttonPercent = new GreyButton("%");
-	WhiteButton buttonDot = new WhiteButton(",");
+	WhiteButton buttonDot = new WhiteButton(".");
 	GreyButton buttonOneX = new GreyButton("1/x");
 	GreyButton buttonSqrt = new GreyButton("\u221A");
 	GreyButton buttonPlusMinus = new GreyButton("\u00B1");
@@ -99,12 +103,17 @@ public class NormCalculator {
 		frame.setSize(228, 322); // размер фрейма
 		frame.setResizable(false); // не разрешаем менять размер
 		frame.setVisible(true); // делаем видимым
-		frame.setTitle("Калькулятор");
+		frame.setTitle("Калькулятор"); //добавляем заголовок окна
 		frame.setLocationRelativeTo(null);// не привязываем к краям экрана, пусть где-то в центре появляется
+		//сетапаем картинку нашему калькулятору, взято отсюда
+		//https://ourcodeworld.com/articles/read/835/how-to-change-a-frame-s-title-bar-icon-application-icon-in-java-awt-toolkit
+		Image img = Toolkit.getDefaultToolkit().getImage("src/wincalc.png");
+	//	Image img = Toolkit.getDefaultToolkit().getImage("src/windows-calculator-icon-8.png");
+		frame.setIconImage(img);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// завершаем программу при закрытии формы
 		
 		
-		frame.addKeyListener(new KeyAdapter() {
+		frame.addKeyListener(new KeyAdapter() { //добавляем ввод циферок с клавиатуры и нумпада
 
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -140,7 +149,7 @@ public class NormCalculator {
 					NormTextField.addSymbol('0');
 					break;
 				case  KeyEvent.VK_DECIMAL:
-					NormTextField.addSymbol(',');
+					NormTextField.addSymbol('.');
 					break;
 				case  KeyEvent.VK_9:
 					NormTextField.addSymbol('9');
@@ -173,7 +182,7 @@ public class NormCalculator {
 					NormTextField.addSymbol('0');
 					break;
 				case  KeyEvent.VK_COMMA:
-					NormTextField.addSymbol(',');
+					NormTextField.addSymbol('.');
 					break;
 				case  KeyEvent.	VK_ESCAPE:
 					NormTextField.clearCE();

@@ -32,7 +32,6 @@ public class WhiteButton extends JButton { // это будет класс дл�
 				char[] ar = e.getComponent().getName().toCharArray();
 				NormTextField.addSymbol(ar[0]);
 				System.out.println(e.getComponent().getName());
-
 			}
 		});
 		
