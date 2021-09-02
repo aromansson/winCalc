@@ -12,12 +12,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.synth.SynthProgressBarUI;
 
 public class NormTextField extends JPanel {
 
 
 	JPanel textPanel;
-	JTextField upperRow;
+	static JTextField upperRow;
 	static JTextField mainRow;
 	static char[] mainArray;
 	static int i;
@@ -50,7 +51,7 @@ public class NormTextField extends JPanel {
 
 		textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
-		upperRow = new JTextField("0", SwingConstants.RIGHT);
+		upperRow = new JTextField(SwingConstants.RIGHT);
 		upperRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, upperRow.getMinimumSize().height));
 		upperRow.setHorizontalAlignment(JTextField.RIGHT);
 		upperRow.setFont(new Font("Consolas", Font.PLAIN, 12));
@@ -247,8 +248,38 @@ public class NormTextField extends JPanel {
 		} else {
 			memorySet(string);
 		}
-	
 	}
 	
+	public static void addToUpperRow(String str) { //честно говоря, это не метод, а ёбаный стыд. 
+		//закончу прогу и обязательно постараюсь переделать ссаные костыли
+		StringBuilder sb = new StringBuilder();
+		if (mainArray.length == MAINROW_SIZE && mainArray[mainArray.length - 1] == '0' && i == mainArray.length - 1 && upperRow.getText().charAt(upperRow.getText().length()-1) != '1'){
+			for (int k = 0; k < upperRow.getText().length(); k++) { //проходимся циклом по строке, чтобы не добавлять пустые символы
+				if ((int) upperRow.getText().charAt(k) != 0) {
+					sb.append(upperRow.getText().charAt(k));
+				}else {
+					}
+				}
+			sb.replace(sb.length()-3, sb.length()-1, str.substring(str.length()-3, str.length()-1));
+			String upperRowNew = new String(sb);
+			upperRow.setText(upperRowNew);
+		} else {
+			sb.append(upperRow.getText());
+			for (int k = 0; k < str.length()-3; k++) { //проходимся циклом по строке, не копируем последние 3 символа (там 2 пробела и знак)
+				if ((int) str.charAt(k) != 0) { //берем только непустые символы
+					sb.append(str.charAt(k)); 
+				} else {
+				}
+			}
+			String upperRowNew = new String(sb);
+			upperRowNew = upperRowNew.indexOf(".") < 0 ? upperRowNew : upperRowNew.replaceAll("0*$", "").replaceAll("\\.$", "");
+			upperRowNew =  upperRowNew + str.substring(str.length()-3);
+			upperRow.setText(upperRowNew);
+		}
+	}
+	
+	public static void clearUpperRow() {
+		upperRow.setText("");
+	}
 
 }

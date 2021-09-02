@@ -8,7 +8,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -151,6 +150,22 @@ public class NormCalculator {
 				case  KeyEvent.VK_DECIMAL:
 					NormTextField.addSymbol('.');
 					break;
+				case  KeyEvent.VK_ADD:
+					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " + ");
+					NormTextField.resetMainArray();
+					break;
+				case  KeyEvent.VK_SUBTRACT:
+					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " - ");
+					NormTextField.resetMainArray();
+					break;
+				case  KeyEvent.VK_MULTIPLY:
+					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " * ");
+					NormTextField.resetMainArray();
+					break;
+				case  KeyEvent.VK_DIVIDE:
+					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " / ");
+					NormTextField.resetMainArray();
+					break;
 				case  KeyEvent.VK_9:
 					NormTextField.addSymbol('9');
 					break;
@@ -186,9 +201,18 @@ public class NormCalculator {
 					break;
 				case  KeyEvent.	VK_ESCAPE:
 					NormTextField.clearCE();
+					NormTextField.clearUpperRow();
 					break;
 				case  KeyEvent.	VK_BACK_SPACE:
 					NormTextField.removeSymbol();
+					break;
+				case  KeyEvent.VK_SLASH:
+					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " / ");
+					NormTextField.resetMainArray();
+					break;
+				case  KeyEvent.VK_MINUS:
+					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " - ");
+					NormTextField.resetMainArray();
 					break;
 
 				default:

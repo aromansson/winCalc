@@ -13,10 +13,7 @@ import javax.swing.border.AbstractBorder;
 
 public class WhiteButton extends JButton { // это будет класс для изготовления
 											// обычных кнопок
-//	String nameString = null;
-
 	public WhiteButton(String name) {
-		// this.nameString = name;
 		this.setName(name);
 		this.setText(name);
 		this.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -31,14 +28,8 @@ public class WhiteButton extends JButton { // это будет класс дл�
 			public void mousePressed(MouseEvent e) {
 				char[] ar = e.getComponent().getName().toCharArray();
 				NormTextField.addSymbol(ar[0]);
-				System.out.println(e.getComponent().getName());
+//				System.out.println(e.getComponent().getName());
 			}
 		});
-		
-		
 	}
-
-//	public String getWBText() {
-	// return this.nameString;
-	// }
 }
