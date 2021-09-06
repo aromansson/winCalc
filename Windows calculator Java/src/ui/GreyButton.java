@@ -37,6 +37,7 @@ public class GreyButton extends JButton {
 				case "C":
 					NormTextField.clearCE();
 					NormTextField.clearUpperRow();
+					NormTextField.calculatorStack.clear();
 					break;
 					
 				case "+":
@@ -44,19 +45,26 @@ public class GreyButton extends JButton {
 					// например, можно передавать addToUpperRow (str1, str2) и в str2 передавать любые другие операции (от процентов до синусов-косинусов)
 					NormTextField.resetMainArray();
 					break;
+					
 				case "-":
 					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " - ");
 					NormTextField.resetMainArray();
 					break;
+					
 				case "*":
 					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " * ");
 					NormTextField.resetMainArray();
 					break;
+					
 				case "/":
 					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " / ");
 					NormTextField.resetMainArray();
 					break;
-
+					
+				case "=":
+					System.out.println(NormTextField.calculatorStack);
+					break;
+					
 				default:
 					break;
 				}

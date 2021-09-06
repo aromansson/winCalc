@@ -25,7 +25,7 @@ public class NormTextField extends JPanel {
 	static boolean comma;
 	static final int MAINROW_SIZE = 8;
 	static char[] memory; //здесь необходимо разобраться, как правильнее организовать массив памяти
-	static ArrayList<char[]> calculatorStack; 
+	static ArrayList<String> calculatorStack; 
 
 	NormTextField() {
 		iniTextField();
@@ -250,30 +250,38 @@ public class NormTextField extends JPanel {
 		}
 	}
 	
-	public static void addToUpperRow(String str) { //честно говоря, это не метод, а ёбаный стыд. 
-		//закончу прогу и обязательно постараюсь переделать ссаные костыли
+	public static void addToUpperRow(String str) { // честно говоря, это не метод, а ёбаный стыд.
+		// закончу прогу и обязательно постараюсь переделать ссаные костыли
 		StringBuilder sb = new StringBuilder();
-		if (mainArray.length == MAINROW_SIZE && mainArray[mainArray.length - 1] == '0' && i == mainArray.length - 1 && upperRow.getText().charAt(upperRow.getText().length()-1) != '1'){
-			for (int k = 0; k < upperRow.getText().length(); k++) { //проходимся циклом по строке, чтобы не добавлять пустые символы
+		if (mainArray.length == MAINROW_SIZE && mainArray[mainArray.length - 1] == '0' && i == mainArray.length - 1
+				&& upperRow.getText().charAt(upperRow.getText().length() - 1) != '1') {
+			for (int k = 0; k < upperRow.getText().length(); k++) { // проходимся циклом по строке, чтобы не добавлять
+																	// пустые символы
 				if ((int) upperRow.getText().charAt(k) != 0) {
 					sb.append(upperRow.getText().charAt(k));
-				}else {
-					}
+					calculatorStack.add(new String(sb)); //добавляем в стек
+				} else {
 				}
-			sb.replace(sb.length()-3, sb.length()-1, str.substring(str.length()-3, str.length()-1));
+			}
+			sb.replace(sb.length() - 3, sb.length() - 1, str.substring(str.length() - 3, str.length() - 1));
+			calculatorStack.remove(calculatorStack.size()); //удаляем последний элемент стека
+			calculatorStack.add(str.substring(str.length() - 2)); //добавляем знак заново
 			String upperRowNew = new String(sb);
 			upperRow.setText(upperRowNew);
 		} else {
 			sb.append(upperRow.getText());
-			for (int k = 0; k < str.length()-3; k++) { //проходимся циклом по строке, не копируем последние 3 символа (там 2 пробела и знак)
-				if ((int) str.charAt(k) != 0) { //берем только непустые символы
-					sb.append(str.charAt(k)); 
+			for (int k = 0; k < str.length() - 3; k++) { // проходимся циклом по строке, не копируем последние 3 символа
+															// (там 2 пробела и знак)
+				if ((int) str.charAt(k) != 0) { // берем только непустые символы
+					sb.append(str.charAt(k));
+					calculatorStack.add(new String(sb)); //добавляем в стек
 				} else {
 				}
 			}
 			String upperRowNew = new String(sb);
-			upperRowNew = upperRowNew.indexOf(".") < 0 ? upperRowNew : upperRowNew.replaceAll("0*$", "").replaceAll("\\.$", "");
-			upperRowNew =  upperRowNew + str.substring(str.length()-3);
+			upperRowNew = upperRowNew.indexOf(".") < 0 ? upperRowNew: upperRowNew.replaceAll("0*$", "").replaceAll("\\.$", "");
+			upperRowNew = upperRowNew + str.substring(str.length() - 3); //????хз, что делает эта строка
+			calculatorStack.add(str.substring(str.length() - 2)); //добавляем знак заново
 			upperRow.setText(upperRowNew);
 		}
 	}
