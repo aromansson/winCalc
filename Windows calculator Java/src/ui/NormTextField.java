@@ -12,10 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.synth.SynthProgressBarUI;
 
 public class NormTextField extends JPanel {
-
 
 	JPanel textPanel;
 	static JTextField upperRow;
@@ -24,8 +22,8 @@ public class NormTextField extends JPanel {
 	static int i;
 	static boolean comma;
 	static final int MAINROW_SIZE = 8;
-	static char[] memory; //здесь необходимо разобраться, как правильнее организовать массив памяти
-	static ArrayList<String> calculatorStack; 
+	static char[] memory; // здесь необходимо разобраться, как правильнее организовать массив памяти
+	static ArrayList<String> calculatorStack;
 
 	NormTextField() {
 		iniTextField();
@@ -34,9 +32,10 @@ public class NormTextField extends JPanel {
 	public Container iniTextField() {
 		mainArray = new char[MAINROW_SIZE]; // array
 		mainArray[mainArray.length - 1] = '0'; // init last array element
-		memory = new char[MAINROW_SIZE+1];
-		memory[memory.length -1] = '0'; // init last array element
-		
+		memory = new char[MAINROW_SIZE + 1];
+		memory[memory.length - 1] = '0'; // init last array element
+
+		calculatorStack = new ArrayList<String>();
 
 		i = mainArray.length - 1; // arraylist iterator
 		comma = false; // there is no comma in textfield
@@ -69,8 +68,16 @@ public class NormTextField extends JPanel {
 
 	}
 
-	public JTextField getMainRow() {
-		return mainRow;
+	public static String getMainRow() {
+		StringBuilder sbm = new StringBuilder();
+		for (int k = 0; k < mainRow.getText().length(); k++) {
+			if ((int) mainRow.getText().charAt(k) != 0) {
+				sbm.append(mainRow.getText().charAt(k));
+			}
+		}
+		String string = new String(sbm);
+		string = string.indexOf(".") < 0 ? string : string.replaceAll("0*$", "").replaceAll("\\.$", "");
+		return string;
 	}
 
 	public static void setMainRow(char[] c) {
@@ -192,31 +199,32 @@ public class NormTextField extends JPanel {
 		char[] array = str.toCharArray();
 		memory = array;
 	}
-	
+
 	public static char[] memoryGet() {
 		return memory;
 	}
-	
+
 	public static void memoryClear() {
 		for (int k = 0; k < memory.length; k++) {
 			memory[k] = 0;
 		}
-		memory[memory.length -1] = '0';
+		memory[memory.length - 1] = '0';
 	}
-	
+
 	public static void memoryPlus(String str) {
 		double d = Double.parseDouble(new String(memory)) + Double.parseDouble(str);
 		String string = Double.toString(d);
-		//use solution from https://stackoverflow.com/questions/14984664/remove-trailing-zero-in-java
+		// use solution from
+		// https://stackoverflow.com/questions/14984664/remove-trailing-zero-in-java
 		string = string.indexOf(".") < 0 ? string : string.replaceAll("0*$", "").replaceAll("\\.$", "");
-		
-		if(string.length() > NormTextField.MAINROW_SIZE+1) {
-			String string1 = string.substring(0, MAINROW_SIZE+1);
+
+		if (string.length() > NormTextField.MAINROW_SIZE + 1) {
+			String string1 = string.substring(0, MAINROW_SIZE + 1);
 			memorySet(string1);
 		} else {
 			memorySet(string);
 		}
-		
+
 //		char[] c1 = string.toCharArray();
 //		if (c1.length > NormTextField.MAINROW_SIZE+1) {
 //			char[] newC1= new char[NormTextField.MAINROW_SIZE];
@@ -228,28 +236,29 @@ public class NormTextField extends JPanel {
 //			NormTextField.memorySet(c1);
 //		}
 	}
-	
+
 	public static void resetMainArray() {
 		mainArray = new char[MAINROW_SIZE]; // array
 		mainArray[mainArray.length - 1] = '0'; // init last array element
 		i = mainArray.length - 1; // arraylist iterator
 		comma = false;
 	}
-	
+
 	public static void memoryMinus(String str) {
 		double d = Double.parseDouble(new String(memory)) - Double.parseDouble(str);
 		String string = Double.toString(d);
-		//use solution from https://stackoverflow.com/questions/14984664/remove-trailing-zero-in-java
+		// use solution from
+		// https://stackoverflow.com/questions/14984664/remove-trailing-zero-in-java
 		string = string.indexOf(".") < 0 ? string : string.replaceAll("0*$", "").replaceAll("\\.$", "");
-		
-		if(string.length() > NormTextField.MAINROW_SIZE+1) {
-			String string1 = string.substring(0, MAINROW_SIZE+1);
+
+		if (string.length() > NormTextField.MAINROW_SIZE + 1) {
+			String string1 = string.substring(0, MAINROW_SIZE + 1);
 			memorySet(string1);
 		} else {
 			memorySet(string);
 		}
 	}
-	
+
 	public static void addToUpperRow(String str) { // честно говоря, это не метод, а ёбаный стыд.
 		// закончу прогу и обязательно постараюсь переделать ссаные костыли
 		StringBuilder sb = new StringBuilder();
@@ -259,13 +268,12 @@ public class NormTextField extends JPanel {
 																	// пустые символы
 				if ((int) upperRow.getText().charAt(k) != 0) {
 					sb.append(upperRow.getText().charAt(k));
-					calculatorStack.add(new String(sb)); //добавляем в стек
 				} else {
 				}
 			}
 			sb.replace(sb.length() - 3, sb.length() - 1, str.substring(str.length() - 3, str.length() - 1));
-			calculatorStack.remove(calculatorStack.size()); //удаляем последний элемент стека
-			calculatorStack.add(str.substring(str.length() - 2)); //добавляем знак заново
+			calculatorStack.remove(calculatorStack.size() - 1); // удаляем последний элемент стека
+			calculatorStack.add(str.substring(str.length() - 2, str.length() - 1)); // добавляем знак заново
 			String upperRowNew = new String(sb);
 			upperRow.setText(upperRowNew);
 		} else {
@@ -274,18 +282,19 @@ public class NormTextField extends JPanel {
 															// (там 2 пробела и знак)
 				if ((int) str.charAt(k) != 0) { // берем только непустые символы
 					sb.append(str.charAt(k));
-					calculatorStack.add(new String(sb)); //добавляем в стек
 				} else {
 				}
 			}
 			String upperRowNew = new String(sb);
-			upperRowNew = upperRowNew.indexOf(".") < 0 ? upperRowNew: upperRowNew.replaceAll("0*$", "").replaceAll("\\.$", "");
-			upperRowNew = upperRowNew + str.substring(str.length() - 3); //????хз, что делает эта строка
-			calculatorStack.add(str.substring(str.length() - 2)); //добавляем знак заново
+			calculatorStack.add(getMainRow()); // добавляем число в стек
+			upperRowNew = upperRowNew.indexOf(".") < 0 ? upperRowNew
+					: upperRowNew.replaceAll("0*$", "").replaceAll("\\.$", "");
+			upperRowNew = upperRowNew + str.substring(str.length() - 3);
+			calculatorStack.add(str.substring(str.length() - 2, str.length() - 1)); // добавляем знак заново
 			upperRow.setText(upperRowNew);
 		}
 	}
-	
+
 	public static void clearUpperRow() {
 		upperRow.setText("");
 	}
