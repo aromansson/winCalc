@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 public class NormTextField extends JPanel {
 
+
 	JPanel textPanel;
 	static JTextField upperRow;
 	static JTextField mainRow;
@@ -293,6 +294,45 @@ public class NormTextField extends JPanel {
 			calculatorStack.add(str.substring(str.length() - 2, str.length() - 1)); // добавляем знак заново
 			upperRow.setText(upperRowNew);
 		}
+	}
+	
+	public static void addToUpperRow(String number, String oper) {
+		StringBuilder sb = new StringBuilder();
+		if (mainArray.length == MAINROW_SIZE && mainArray[mainArray.length - 1] == '0' && i == mainArray.length - 1
+				&& upperRow.getText().charAt(upperRow.getText().length() - 1) != '1') {
+			sb.append(getUpperRow());
+			sb.replace(sb.length() - 3, sb.length() - 1, oper);
+			calculatorStack.remove(calculatorStack.size() - 1); // удаляем последний элемент стека
+			calculatorStack.add(oper.substring(oper.length() - 2, oper.length() - 1)); // добавляем знак заново (возможно, тут перепишу на свич кейз)
+			String upperRowNew = new String(sb);
+			upperRow.setText(upperRowNew);
+		} else {
+			sb.append(getUpperRow());
+			String upperRowNew = new String(sb);
+			calculatorStack.add(getMainRow());
+			upperRowNew += oper; //добавляем математический оператор
+			calculatorStack.add(oper.substring(oper.length() - 2, oper.length() - 1));
+			upperRow.setText(upperRowNew);
+		}
+		
+	}
+
+	public static String getUpperRow() {
+		StringBuilder sbr = new StringBuilder();
+		for (int k = 0; k < upperRow.getText().length(); k++) { // проходимся циклом по строке, чтобы не добавлять
+			// пустые символы
+			if ((int) upperRow.getText().charAt(k) != 0) {
+				sbr.append(upperRow.getText().charAt(k));
+			}
+		}
+		String upperRowNew = new String(sbr);
+		upperRowNew = upperRowNew.indexOf(".") < 0 ? upperRowNew
+				: upperRowNew.replaceAll("0*$", "").replaceAll("\\.$", "");
+		return upperRowNew;
+	}
+	
+	public static void setUpperRow(JTextField upperRow) {
+		NormTextField.upperRow = upperRow;
 	}
 
 	public static void clearUpperRow() {

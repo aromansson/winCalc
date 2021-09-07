@@ -57,11 +57,12 @@ public class GreyButton extends JButton {
 					break;
 					
 				case "/":
-					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " / ");
+					NormTextField.addToUpperRow(NormTextField.mainRow.getText(), " / ");
 					NormTextField.resetMainArray();
 					break;
 					
 				case "=":
+			//		NormTextField.addToUpperRow(NormTextField.mainRow.getText());
 					System.out.println(NormTextField.calculatorStack);
 					break;
 					
