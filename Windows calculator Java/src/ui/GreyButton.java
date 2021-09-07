@@ -29,43 +29,46 @@ public class GreyButton extends JButton {
 				case "←":
 					NormTextField.removeSymbol();
 					break;
-					
+
 				case "CE":
 					NormTextField.clearCE();
 					break;
-					
+
 				case "C":
 					NormTextField.clearCE();
 					NormTextField.clearUpperRow();
 					NormTextField.calculatorStack.clear();
 					break;
-					
+
 				case "+":
-					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " + "); //здесь можно передавать 2 строки и это охуенно упростит метод
-					// например, можно передавать addToUpperRow (str1, str2) и в str2 передавать любые другие операции (от процентов до синусов-косинусов)
+					NormTextField.addToUpperRow(NormTextField.mainRow.getText(), " + "); // здесь можно передавать 2
+																							// строки и это охуенно
+																							// упростит метод
+					// например, можно передавать addToUpperRow (str1, str2) и в str2 передавать
+					// любые другие операции (от процентов до синусов-косинусов)
 					NormTextField.resetMainArray();
 					break;
-					
+
 				case "-":
-					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " - ");
+					NormTextField.addToUpperRow(NormTextField.getMainRow(), " - ");
 					NormTextField.resetMainArray();
 					break;
-					
+
 				case "*":
-					NormTextField.addToUpperRow(NormTextField.mainRow.getText() + " * ");
+					NormTextField.addToUpperRow(NormTextField.getMainRow(), " * ");
 					NormTextField.resetMainArray();
 					break;
-					
+
 				case "/":
-					NormTextField.addToUpperRow(NormTextField.mainRow.getText(), " / ");
+					NormTextField.addToUpperRow(NormTextField.getMainRow(), " / ");
 					NormTextField.resetMainArray();
 					break;
-					
+
 				case "=":
-			//		NormTextField.addToUpperRow(NormTextField.mainRow.getText());
+					NormTextField.addToUpperRow(NormTextField.mainRow.getText());
 					System.out.println(NormTextField.calculatorStack);
 					break;
-					
+
 				default:
 					break;
 				}
