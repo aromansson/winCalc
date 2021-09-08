@@ -40,10 +40,11 @@ public class GreyButton extends JButton {
 					NormTextField.clearCE();
 					NormTextField.clearUpperRow();
 					NormTextField.calculatorStack.clear();
+					RPN.clear();
 					break;
 
 				case "+":
-					NormTextField.addToUpperRow(NormTextField.getMainRow(), " + "); 
+					NormTextField.addToUpperRow(NormTextField.getMainRow(), " + ");
 					NormTextField.resetMainArray();
 					break;
 
@@ -64,7 +65,7 @@ public class GreyButton extends JButton {
 					break;
 
 				case "=":
-					NormTextField.addToUpperRow(NormTextField.getMainRow()); //работает
+					NormTextField.addToUpperRow(NormTextField.getMainRow()); // работает
 					System.out.println(NormTextField.calculatorStack);
 					System.out.println(RPN.convertToRPN(NormTextField.calculatorStack));
 					break;
