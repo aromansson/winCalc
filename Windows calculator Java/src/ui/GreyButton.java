@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.border.AbstractBorder;
 
+import arithmetic.RPN;
+
 public class GreyButton extends JButton {
 	public GreyButton(String name) {
 		this.setText(name);
@@ -41,11 +43,7 @@ public class GreyButton extends JButton {
 					break;
 
 				case "+":
-					NormTextField.addToUpperRow(NormTextField.mainRow.getText(), " + "); // здесь можно передавать 2
-																							// строки и это охуенно
-																							// упростит метод
-					// например, можно передавать addToUpperRow (str1, str2) и в str2 передавать
-					// любые другие операции (от процентов до синусов-косинусов)
+					NormTextField.addToUpperRow(NormTextField.getMainRow(), " + "); 
 					NormTextField.resetMainArray();
 					break;
 
@@ -60,13 +58,15 @@ public class GreyButton extends JButton {
 					break;
 
 				case "/":
+					System.out.println(NormTextField.getMainRow());
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " / ");
 					NormTextField.resetMainArray();
 					break;
 
 				case "=":
-					NormTextField.addToUpperRow(NormTextField.mainRow.getText());
+					NormTextField.addToUpperRow(NormTextField.getMainRow()); //работает
 					System.out.println(NormTextField.calculatorStack);
+					System.out.println(RPN.convertToRPN(NormTextField.calculatorStack));
 					break;
 
 				default:

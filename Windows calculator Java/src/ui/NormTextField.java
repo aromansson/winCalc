@@ -272,22 +272,23 @@ public class NormTextField extends JPanel {
 	}
 
 	public static void addToUpperRow(String number, String oper) {
-		StringBuilder sb = new StringBuilder();
-		if (mainArray.length == MAINROW_SIZE && mainArray[mainArray.length - 1] == '0' && i == mainArray.length - 1
-				&& upperRow.getText().charAt(upperRow.getText().length() - 1) != '1') {
-			sb.append(number);
-			sb.append(oper);
+		StringBuilder sb = new StringBuilder(); //готовым новый билдер
+		if (mainArray.length == MAINROW_SIZE && mainArray[mainArray.length - 1] == '0' && i == mainArray.length - 1 //вот эту сраку тоже надо переделать, возможно булево условие где-то сделать
+				&& upperRow.getText().charAt(upperRow.getText().length() - 1) != '1') { //если основной массив сброшен, но в верхнем ряду что-то есть
+			sb.append(getUpperRow()); //кидаем верхний ряд в билдер
+			sb.replace(sb.length() - 3, sb.length(), oper); //добавляем туда оператор
 			calculatorStack.remove(calculatorStack.size() - 1); // удаляем последний элемент стека
 			calculatorStack.add(oper.substring(oper.length() - 2, oper.length() - 1)); // добавляем знак заново
 																						// (возможно, тут перепишу на
 																						// свич кейз)
-			String upperRowNew = new String(sb);
-			upperRow.setText(upperRowNew);
-		} else {
-			sb.append(getUpperRow());
-			String upperRowNew = new String(sb);
-			calculatorStack.add(getMainRow());
-			upperRowNew += oper; // добавляем математический оператор
+			String upperRowNew = new String(sb); //заводим строку из нашего билдера
+			upperRow.setText(upperRowNew); //кидаем строку обратно в верхний ряд
+		} else { //если массив не сброшен
+			sb.append(getUpperRow()); //кидаем верхний ряд в билдер
+			sb.append(number); //кидаем число из массива в билдер
+			String upperRowNew = new String(sb); //зводим строку из нашего билдера
+			calculatorStack.add(getMainRow()); //добавляем число в стек
+			upperRowNew += oper; // добавляем математический оператор в строку
 			calculatorStack.add(oper.substring(oper.length() - 2, oper.length() - 1));
 			upperRow.setText(upperRowNew);
 		}
