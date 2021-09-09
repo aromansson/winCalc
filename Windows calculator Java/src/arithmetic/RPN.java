@@ -15,23 +15,23 @@ public class RPN { // моя попытка написать reverse polish nota
 	 * https://stackoverflow.com/questions/14100522/reverse-polish-notation-java
 	 */
 	static Stack<String> stack = new Stack<String>();
-	static String s = new String();
+	static ArrayList<String> s = new ArrayList<String>();
+	static Stack<Double> result = new Stack<Double>();
 	static double number1;
 	static double number2;
 
-	public static String convertToRPN(ArrayList<String> list) { // преобразовываем в
-																// обратную польскую
-																// нотацию
+	public static char[] convertToRPN(ArrayList<String> list) { // преобразовываем наш массив из верхнего
+																// ряда в ОПН
 		try {
 			for (String string : list) {
 				switch (string) {
 				case "(":
 					stack.addElement(string);
 					break;
-				case "^":
+				case ")":
 
 					break;
-				case ")":
+				case "^":
 
 					break;
 				case "*":
@@ -50,7 +50,7 @@ public class RPN { // моя попытка написать reverse polish nota
 					break;
 				case "+":
 					if (!stack.empty()) {
-						s += stack.pop();
+						s.add(stack.pop());
 						stack.addElement(string);
 					} else {
 						stack.addElement(string);
@@ -58,7 +58,7 @@ public class RPN { // моя попытка написать reverse polish nota
 					break;
 				case "-":
 					if (!stack.empty()) {
-						s += stack.pop();
+						s.add(stack.pop());
 						stack.addElement(string);
 					} else {
 						stack.addElement(string);
@@ -66,32 +66,70 @@ public class RPN { // моя попытка написать reverse polish nota
 					break;
 
 				default:
-					s += string;
+					s.add(string);
 					break;
 				}
 			}
 			while (!stack.empty()) {
-				s += stack.pop();
+				s.add(stack.pop());
 			}
-			return s;
+			// return s;
 		} catch (EmptyStackException e) {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return s;
+		System.out.println(s);
+		return startStackMachine(s);
 
 	}
 
-	public void startStackMachine(ArrayList<String> list) {// да, назвал так в дань уважения
-															// ЭВМ прошлого
-		// принимаем на вход наш лист из массива,
-		// формируемого в текстовом поле
+	public static char[] startStackMachine(ArrayList<String> list) {// да, назвал так в дань уважения
+		// ЭВМ прошлого
+		// принимаем на вход массив, сформированный в ОПН
+		String resultD;
+		while (!list.isEmpty()) {
+			try {
+				for (String element : list) {
+					switch (element) {
+					case "^":
 
+						break;
+					case "*":
+						result.push(result.pop() * result.pop());
+						list.remove(element);
+						break;
+					case "/":
+						result.push(result.pop() / result.pop());
+						list.remove(element);
+						break;
+					case "+":
+						result.push(result.pop() + result.pop());
+						list.remove(element);
+						break;
+					case "-":
+						result.push(-result.pop() + result.pop());
+						list.remove(element);
+						break;
+
+					default:
+						result.push(Double.parseDouble(element));
+						list.remove(element);
+						break;
+					}
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				continue;
+			}
+		}
+		resultD = result.pop().toString();
+		return resultD.toCharArray();
 	}
 
 	public static void clear() {
-		s = new String();
+		s.clear();
 		stack.clear();
+		result.clear();
 	}
 
 }

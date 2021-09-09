@@ -11,6 +11,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import arithmetic.RPN;
+
 public class NormCalculator {
 
 	JFrame frame = new JFrame();
@@ -19,7 +21,7 @@ public class NormCalculator {
 	NormTextField field = new NormTextField(); // поле для ввода цифр обычного калькулятора
 	MenuBar menuBar; // экземпляр класса
 
-	//инициализируем все кнопки
+	// инициализируем все кнопки
 	WhiteButton button1 = new WhiteButton("1");
 	WhiteButton button2 = new WhiteButton("2");
 	WhiteButton button3 = new WhiteButton("3");
@@ -102,115 +104,125 @@ public class NormCalculator {
 		frame.setSize(228, 322); // размер фрейма
 		frame.setResizable(false); // не разрешаем менять размер
 		frame.setVisible(true); // делаем видимым
-		frame.setTitle("Калькулятор"); //добавляем заголовок окна
+		frame.setTitle("Калькулятор"); // добавляем заголовок окна
 		frame.setLocationRelativeTo(null);// не привязываем к краям экрана, пусть где-то в центре появляется
-		//сетапаем картинку нашему калькулятору, взято отсюда
-		//https://ourcodeworld.com/articles/read/835/how-to-change-a-frame-s-title-bar-icon-application-icon-in-java-awt-toolkit
+		// сетапаем картинку нашему калькулятору, взято отсюда
+		// https://ourcodeworld.com/articles/read/835/how-to-change-a-frame-s-title-bar-icon-application-icon-in-java-awt-toolkit
 		Image img = Toolkit.getDefaultToolkit().getImage("src/wincalc.png");
-	//	Image img = Toolkit.getDefaultToolkit().getImage("src/windows-calculator-icon-8.png");
+		// Image img =
+		// Toolkit.getDefaultToolkit().getImage("src/windows-calculator-icon-8.png");
 		frame.setIconImage(img);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// завершаем программу при закрытии формы
-		
-		
-		frame.addKeyListener(new KeyAdapter() { //добавляем ввод циферок с клавиатуры и нумпада
+
+		frame.addKeyListener(new KeyAdapter() { // добавляем ввод циферок с клавиатуры и нумпада
 
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
-				case  KeyEvent.VK_NUMPAD9:
+				case KeyEvent.VK_NUMPAD9:
 					NormTextField.addSymbol('9');
 					break;
-				case  KeyEvent.VK_NUMPAD8:
+				case KeyEvent.VK_NUMPAD8:
 					NormTextField.addSymbol('8');
 					break;
-				case  KeyEvent.VK_NUMPAD7:
+				case KeyEvent.VK_NUMPAD7:
 					NormTextField.addSymbol('7');
 					break;
-				case  KeyEvent.VK_NUMPAD6:
+				case KeyEvent.VK_NUMPAD6:
 					NormTextField.addSymbol('6');
 					break;
-				case  KeyEvent.VK_NUMPAD5:
+				case KeyEvent.VK_NUMPAD5:
 					NormTextField.addSymbol('5');
 					break;
-				case  KeyEvent.VK_NUMPAD4:
+				case KeyEvent.VK_NUMPAD4:
 					NormTextField.addSymbol('4');
 					break;
-				case  KeyEvent.VK_NUMPAD3:
+				case KeyEvent.VK_NUMPAD3:
 					NormTextField.addSymbol('3');
 					break;
-				case  KeyEvent.VK_NUMPAD2:
+				case KeyEvent.VK_NUMPAD2:
 					NormTextField.addSymbol('2');
 					break;
-				case  KeyEvent.VK_NUMPAD1:
+				case KeyEvent.VK_NUMPAD1:
 					NormTextField.addSymbol('1');
 					break;
-				case  KeyEvent.VK_NUMPAD0:
+				case KeyEvent.VK_NUMPAD0:
 					NormTextField.addSymbol('0');
 					break;
-				case  KeyEvent.VK_DECIMAL:
+				case KeyEvent.VK_ENTER:
+					NormTextField.addToUpperRow(NormTextField.getMainRow()); // работает
+					System.out.println(NormTextField.calculatorStack);
+					System.out.println(RPN.convertToRPN(NormTextField.calculatorStack));
+					NormTextField.clearUpperRow();
+					NormTextField.resetMainArray();
+					NormTextField.setMainRow(RPN.convertToRPN(NormTextField.calculatorStack));
+					RPN.clear();
+					NormTextField.calculatorStack.clear();
+					break;
+				case KeyEvent.VK_DECIMAL:
 					NormTextField.addSymbol('.');
 					break;
-				case  KeyEvent.VK_ADD:
+				case KeyEvent.VK_ADD:
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " + ");
 					NormTextField.resetMainArray();
 					break;
-				case  KeyEvent.VK_SUBTRACT:
+				case KeyEvent.VK_SUBTRACT:
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " - ");
 					NormTextField.resetMainArray();
 					break;
-				case  KeyEvent.VK_MULTIPLY:
+				case KeyEvent.VK_MULTIPLY:
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " * ");
 					NormTextField.resetMainArray();
 					break;
-				case  KeyEvent.VK_DIVIDE:
+				case KeyEvent.VK_DIVIDE:
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " / ");
 					NormTextField.resetMainArray();
 					break;
-				case  KeyEvent.VK_9:
+				case KeyEvent.VK_9:
 					NormTextField.addSymbol('9');
 					break;
-				case  KeyEvent.VK_8:
+				case KeyEvent.VK_8:
 					NormTextField.addSymbol('8');
 					break;
-				case  KeyEvent.VK_7:
+				case KeyEvent.VK_7:
 					NormTextField.addSymbol('7');
 					break;
-				case  KeyEvent.VK_6:
+				case KeyEvent.VK_6:
 					NormTextField.addSymbol('6');
 					break;
-				case  KeyEvent.VK_5:
+				case KeyEvent.VK_5:
 					NormTextField.addSymbol('5');
 					break;
-				case  KeyEvent.VK_4:
+				case KeyEvent.VK_4:
 					NormTextField.addSymbol('4');
 					break;
-				case  KeyEvent.VK_3:
+				case KeyEvent.VK_3:
 					NormTextField.addSymbol('3');
 					break;
-				case  KeyEvent.VK_2:
+				case KeyEvent.VK_2:
 					NormTextField.addSymbol('2');
 					break;
-				case  KeyEvent.VK_1:
+				case KeyEvent.VK_1:
 					NormTextField.addSymbol('1');
 					break;
-				case  KeyEvent.VK_0:
+				case KeyEvent.VK_0:
 					NormTextField.addSymbol('0');
 					break;
-				case  KeyEvent.VK_COMMA:
+				case KeyEvent.VK_COMMA:
 					NormTextField.addSymbol('.');
 					break;
-				case  KeyEvent.	VK_ESCAPE:
+				case KeyEvent.VK_ESCAPE:
 					NormTextField.clearCE();
 					NormTextField.clearUpperRow();
 					break;
-				case  KeyEvent.	VK_BACK_SPACE:
+				case KeyEvent.VK_BACK_SPACE:
 					NormTextField.removeSymbol();
 					break;
-				case  KeyEvent.VK_SLASH:
+				case KeyEvent.VK_SLASH:
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " / ");
 					NormTextField.resetMainArray();
 					break;
-				case  KeyEvent.VK_MINUS:
+				case KeyEvent.VK_MINUS:
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " - ");
 					NormTextField.resetMainArray();
 					break;
@@ -219,7 +231,7 @@ public class NormCalculator {
 					break;
 				}
 			}
-		
+
 		});
 	}
 }

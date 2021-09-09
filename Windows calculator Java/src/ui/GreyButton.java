@@ -68,6 +68,11 @@ public class GreyButton extends JButton {
 					NormTextField.addToUpperRow(NormTextField.getMainRow()); // работает
 					System.out.println(NormTextField.calculatorStack);
 					System.out.println(RPN.convertToRPN(NormTextField.calculatorStack));
+					NormTextField.clearUpperRow();
+					NormTextField.resetMainArray();
+					NormTextField.setMainRow(RPN.convertToRPN(NormTextField.calculatorStack));
+					RPN.clear();
+					NormTextField.calculatorStack.clear();
 					break;
 
 				default:
