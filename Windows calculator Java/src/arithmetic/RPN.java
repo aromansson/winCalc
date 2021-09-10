@@ -17,8 +17,8 @@ public class RPN { // моя попытка написать reverse polish nota
 	static Stack<String> stack = new Stack<String>();
 	static ArrayList<String> s = new ArrayList<String>();
 	static Stack<Double> result = new Stack<Double>();
-	static double number1;
-	static double number2;
+	static double firstOperand;
+	static double secondOperand;
 
 	public static char[] convertToRPN(ArrayList<String> list) { // преобразовываем наш массив из верхнего
 																// ряда в ОПН
@@ -87,27 +87,39 @@ public class RPN { // моя попытка написать reverse polish nota
 		// ЭВМ прошлого
 		// принимаем на вход массив, сформированный в ОПН
 		String resultD;
+		
 		while (!list.isEmpty()) {
 			try {
 				for (String element : list) {
 					switch (element) {
 					case "^":
-
+						secondOperand = result.pop();
+						firstOperand = result.pop();
+						result.push(Math.pow(firstOperand, secondOperand));
+						list.remove(element);
 						break;
 					case "*":
-						result.push(result.pop() * result.pop());
+						secondOperand = result.pop();
+						firstOperand = result.pop();
+						result.push(firstOperand * secondOperand);
 						list.remove(element);
 						break;
 					case "/":
-						result.push(result.pop() / result.pop());
+						secondOperand = result.pop();
+						firstOperand = result.pop();
+						result.push(firstOperand / secondOperand);
 						list.remove(element);
 						break;
 					case "+":
-						result.push(result.pop() + result.pop());
+						secondOperand = result.pop();
+						firstOperand = result.pop();
+						result.push(firstOperand + secondOperand);
 						list.remove(element);
 						break;
 					case "-":
-						result.push(-result.pop() + result.pop());
+						secondOperand = result.pop();
+						firstOperand = result.pop();
+						result.push(firstOperand - secondOperand);
 						list.remove(element);
 						break;
 

@@ -84,6 +84,9 @@ public class NormTextField extends JPanel {
 
 		String string = new String(c);
 		string = string.indexOf(".") < 0 ? string : string.replaceAll("0*$", "").replaceAll("\\.$", "");
+		if (string.length() > MAINROW_SIZE +1) {
+			string = string.substring(0, MAINROW_SIZE +1);
+		}
 		mainRow.setText(string);
 	}
 
