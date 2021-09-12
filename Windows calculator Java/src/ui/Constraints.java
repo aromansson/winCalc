@@ -13,7 +13,6 @@ public class Constraints {
 
 	public Constraints() {
 		initCosntrains();
-		System.out.println("we");
 	}
 
 	public void initCosntrains() { // инициализируем констрейнс, подходящий для первого элемента

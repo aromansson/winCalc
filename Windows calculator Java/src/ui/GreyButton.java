@@ -26,7 +26,7 @@ public class GreyButton extends JButton {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-//				System.out.println(e.getComponent().getName());
+				System.out.println(e.getComponent().getName());
 				switch (e.getComponent().getName()) {
 				case "←":
 					NormTextField.removeSymbol();
@@ -59,8 +59,15 @@ public class GreyButton extends JButton {
 					break;
 
 				case "/":
-					System.out.println(NormTextField.getMainRow());
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " / ");
+					NormTextField.resetMainArray();
+					break;
+
+				case "√":
+					double square = Math.sqrt(Double.parseDouble(NormTextField.getMainRow()));
+					char[] sqChar = Double.toString(square).toCharArray();
+					NormTextField.setMainRow(sqChar);
+					NormTextField.addToUpperRow(NormTextField.getMainRow());
 					NormTextField.resetMainArray();
 					break;
 
@@ -70,7 +77,10 @@ public class GreyButton extends JButton {
 					System.out.println(RPN.convertToRPN(NormTextField.calculatorStack));
 					NormTextField.clearUpperRow();
 					NormTextField.resetMainArray();
-					NormTextField.setMainRow(RPN.convertToRPN(NormTextField.calculatorStack));
+					String tempString = new String(RPN.convertToRPN(NormTextField.calculatorStack));
+					tempString = tempString.indexOf(".") < 0 ? tempString
+							: tempString.replaceAll("0*$", "").replaceAll("\\.$", "");
+					NormTextField.setMainRow(tempString.toCharArray());
 					RPN.clear();
 					NormTextField.calculatorStack.clear();
 					break;

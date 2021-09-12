@@ -83,9 +83,8 @@ public class NormTextField extends JPanel {
 	public static void setMainRow(char[] c) {
 
 		String string = new String(c);
-		string = string.indexOf(".") < 0 ? string : string.replaceAll("0*$", "").replaceAll("\\.$", "");
-		if (string.length() > MAINROW_SIZE +1) {
-			string = string.substring(0, MAINROW_SIZE +1);
+		if (string.length() > MAINROW_SIZE + 1) {
+			string = string.substring(0, MAINROW_SIZE + 1);
 		}
 		mainRow.setText(string);
 	}
@@ -288,8 +287,8 @@ public class NormTextField extends JPanel {
 																													// условие
 																													// где-то
 																													// сделать
-				&& upperRow.getText().charAt(upperRow.getText().length() - 1) != '1') { // если основной массив сброшен,
-																						// но в верхнем ряду что-то есть
+				&& !upperRow.getText().equals("")) { // если основной массив сброшен,
+														// но в верхнем ряду что-то есть
 			sb.append(getUpperRow()); // кидаем верхний ряд в билдер
 			sb.replace(sb.length() - 3, sb.length(), oper); // добавляем туда оператор
 			calculatorStack.remove(calculatorStack.size() - 1); // удаляем последний элемент стека

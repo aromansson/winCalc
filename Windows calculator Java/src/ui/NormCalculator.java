@@ -51,6 +51,10 @@ public class NormCalculator {
 	OpaqueButton buttonMPlus = new OpaqueButton("M+");
 	OpaqueButton buttonMMinus = new OpaqueButton("M-");
 
+	public NormCalculator() { // пиздякнем конструктор
+		initNormCalculator();
+	}
+
 	public void initNormCalculator() {
 
 		panel.setLayout(gbl);
@@ -155,7 +159,10 @@ public class NormCalculator {
 					System.out.println(RPN.convertToRPN(NormTextField.calculatorStack));
 					NormTextField.clearUpperRow();
 					NormTextField.resetMainArray();
-					NormTextField.setMainRow(RPN.convertToRPN(NormTextField.calculatorStack));
+					String tempString = new String(RPN.convertToRPN(NormTextField.calculatorStack));
+					tempString = tempString.indexOf(".") < 0 ? tempString
+							: tempString.replaceAll("0*$", "").replaceAll("\\.$", "");
+					NormTextField.setMainRow(tempString.toCharArray());
 					RPN.clear();
 					NormTextField.calculatorStack.clear();
 					break;
