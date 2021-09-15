@@ -262,7 +262,7 @@ public class NormTextField extends JPanel {
 		}
 	}
 
-	public static void addToUpperRow(String str) { // честно говоря, это не метод, а ёбаный стыд.
+	public static void addEquals(String str) { // честно говоря, это не метод, а ёбаный стыд.
 		// закончу прогу и обязательно постараюсь переделать ссаные костыли
 		StringBuilder sb = new StringBuilder();
 

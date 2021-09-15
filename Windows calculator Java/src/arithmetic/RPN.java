@@ -1,7 +1,6 @@
 package arithmetic;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class RPN { // моя попытка написать reverse polish notation
@@ -14,16 +13,45 @@ public class RPN { // моя попытка написать reverse polish nota
 	 * или сужать при освобождении стека
 	 * https://stackoverflow.com/questions/14100522/reverse-polish-notation-java
 	 */
-	static Stack<String> stack = new Stack<String>();
-	static ArrayList<String> s = new ArrayList<String>();
+	static Stack<String> stack = new Stack<String>(); // cтек операций
+	static ArrayList<String> s = new ArrayList<String>(); // строка ОПН
 	static Stack<Double> result = new Stack<Double>();
 	static double firstOperand;
 	static double secondOperand;
 
+	public static int getPriority(String c) {
+		int priority = 0;
+		switch (c) {
+		case "(":
+			priority = 0;
+			break;
+		case ")":
+			priority = 0;
+			break;
+		case "^":
+			priority = 1;
+			break;
+		case "*":
+			priority = 2;
+			break;
+		case "/":
+			priority = 2;
+			break;
+		case "+":
+			priority = 3;
+			break;
+		case "-":
+			priority = 3;
+			break;
+		}
+		return priority;
+	}
+
 	public static char[] convertToRPN(ArrayList<String> list) { // преобразовываем наш массив из верхнего
 																// ряда в ОПН
-		try {
-			for (String string : list) {
+		for (String string : list) {
+
+			try {
 				switch (string) {
 				case "(":
 					stack.addElement(string);
@@ -32,62 +60,93 @@ public class RPN { // моя попытка написать reverse polish nota
 
 					break;
 				case "^":
-
+					if (!stack.empty()) {
+						if (getPriority(string) < getPriority(stack.peek())) {
+							stack.addElement(string);
+						} else {
+							while (!stack.empty() && getPriority(string) >= getPriority(stack.peek())) {
+								s.add(stack.pop());
+							}
+							stack.addElement(string);
+						}
+					} else
+						stack.addElement(string);
 					break;
 				case "*":
 					if (!stack.empty()) {
+						if (getPriority(string) < getPriority(stack.peek())) {
+							stack.addElement(string);
+						} else {
+							while (!stack.empty() && getPriority(string) >= getPriority(stack.peek())) {
+								s.add(stack.pop());
+							}
+							stack.addElement(string);
+						}
+					} else
 						stack.addElement(string);
-					} else {
-						stack.addElement(string);
-					}
 					break;
 				case "/":
 					if (!stack.empty()) {
+						if (getPriority(string) < getPriority(stack.peek())) {
+							stack.addElement(string);
+						} else {
+							while (!stack.empty() && getPriority(string) >= getPriority(stack.peek())) {
+								s.add(stack.pop());
+							}
+							stack.addElement(string);
+						}
+					} else
 						stack.addElement(string);
-					} else {
-						stack.addElement(string);
-					}
 					break;
 				case "+":
 					if (!stack.empty()) {
-						s.add(stack.pop());
+						if (getPriority(string) < getPriority(stack.peek())) {
+							stack.addElement(string);
+						} else {
+							while (!stack.empty() && getPriority(string) >= getPriority(stack.peek())) {
+								s.add(stack.pop());
+							}
+							stack.addElement(string);
+						}
+					} else
 						stack.addElement(string);
-					} else {
-						stack.addElement(string);
-					}
 					break;
 				case "-":
 					if (!stack.empty()) {
-						s.add(stack.pop());
+						if (getPriority(string) < getPriority(stack.peek())) {
+							stack.addElement(string);
+						} else {
+							while (!stack.empty() && getPriority(string) >= getPriority(stack.peek())) {
+								s.add(stack.pop());
+							}
+							stack.addElement(string);
+						}
+					} else
 						stack.addElement(string);
-					} else {
-						stack.addElement(string);
-					}
 					break;
-
 				default:
 					s.add(string);
 					break;
 				}
+				System.out.println(s);
+
+			} catch (Exception e) {
+				continue;
 			}
-			while (!stack.empty()) {
-				s.add(stack.pop());
-			}
-			// return s;
-		} catch (EmptyStackException e) {
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
+		while (!stack.empty()) {
+			s.add(stack.pop());
+		}
+		// return s;
 		System.out.println(s);
 		return startStackMachine(s);
-
 	}
 
 	public static char[] startStackMachine(ArrayList<String> list) {// да, назвал так в дань уважения
 		// ЭВМ прошлого
 		// принимаем на вход массив, сформированный в ОПН
 		String resultD;
-		
+
 		while (!list.isEmpty()) {
 			try {
 				for (String element : list) {

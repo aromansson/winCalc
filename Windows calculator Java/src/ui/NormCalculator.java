@@ -154,9 +154,9 @@ public class NormCalculator {
 					NormTextField.addSymbol('0');
 					break;
 				case KeyEvent.VK_ENTER:
-					NormTextField.addToUpperRow(NormTextField.getMainRow()); // работает
+					NormTextField.addEquals(NormTextField.getMainRow()); // работает
 					System.out.println(NormTextField.calculatorStack);
-					System.out.println(RPN.convertToRPN(NormTextField.calculatorStack));
+					// System.out.println(RPN.convertToRPN(NormTextField.calculatorStack));
 					NormTextField.clearUpperRow();
 					NormTextField.resetMainArray();
 					String tempString = new String(RPN.convertToRPN(NormTextField.calculatorStack));

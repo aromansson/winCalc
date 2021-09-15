@@ -63,17 +63,21 @@ public class GreyButton extends JButton {
 					NormTextField.resetMainArray();
 					break;
 
+//				case "√":
+//					double square = Math.sqrt(Double.parseDouble(NormTextField.getMainRow()));
+//					char[] sqChar = Double.toString(square).toCharArray();
+//					NormTextField.setMainRow(sqChar);
+//					NormTextField.addToUpperRow(NormTextField.getMainRow());
+//					NormTextField.resetMainArray();
+//					break;
+
 				case "√":
-					double square = Math.sqrt(Double.parseDouble(NormTextField.getMainRow()));
-					char[] sqChar = Double.toString(square).toCharArray();
-					NormTextField.setMainRow(sqChar);
-					NormTextField.addToUpperRow(NormTextField.getMainRow());
-					NormTextField.resetMainArray();
+
 					break;
 
 				case "=":
-					NormTextField.addToUpperRow(NormTextField.getMainRow()); // работает
-					System.out.println(NormTextField.calculatorStack);
+					NormTextField.addEquals(NormTextField.getMainRow()); // работает
+					// System.out.println(NormTextField.getUpperRow());
 					System.out.println(RPN.convertToRPN(NormTextField.calculatorStack));
 					NormTextField.clearUpperRow();
 					NormTextField.resetMainArray();
