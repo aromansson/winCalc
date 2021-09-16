@@ -93,8 +93,8 @@ public class NormTextField extends JPanel {
 		return mainArray;
 	}
 
-	public void setMainArray(char[] mainArray) {
-		this.mainArray = mainArray;
+	public static void setMainArray(char[] mainArray) {
+		NormTextField.mainArray = mainArray;
 	}
 
 	public static void addSymbol(char c) {
@@ -259,6 +259,26 @@ public class NormTextField extends JPanel {
 			memorySet(string1);
 		} else {
 			memorySet(string);
+		}
+	}
+	
+	public static void negateOp() {
+		if (Double.parseDouble(getMainRow())>0d) {
+			char[] newArray = new char[mainArray.length + 1]; // создаем новый массив на единицу длиннее
+			mainArray = newArray; // присваиваем ссылку нашего массива на новый
+			double negateD = -1* Double.parseDouble(getMainRow());
+			String negateStr = Double.toString(negateD);
+			negateStr = negateStr.indexOf(".") < 0 ? negateStr : negateStr.replaceAll("0*$", "").replaceAll("\\.$", "");
+			setMainArray(negateStr.toCharArray());
+			setMainRow(mainArray);
+		} else {
+			char[] newArray = new char[mainArray.length - 1]; // создаем новый массив на единицу длиннее
+			mainArray = newArray; // присваиваем ссылку нашего массива на новый
+			double negateD = -1* Double.parseDouble(getMainRow());
+			String negateStr = Double.toString(negateD);
+			negateStr = negateStr.indexOf(".") < 0 ? negateStr : negateStr.replaceAll("0*$", "").replaceAll("\\.$", "");
+			setMainArray(negateStr.toCharArray());
+			setMainRow(mainArray);
 		}
 	}
 

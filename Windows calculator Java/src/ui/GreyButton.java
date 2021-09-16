@@ -62,6 +62,9 @@ public class GreyButton extends JButton {
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " / ");
 					NormTextField.resetMainArray();
 					break;
+				case "±":
+					NormTextField.negateOp(); //меняем знак у 
+					break;
 
 //				case "√":
 //					double square = Math.sqrt(Double.parseDouble(NormTextField.getMainRow()));
@@ -72,7 +75,7 @@ public class GreyButton extends JButton {
 //					break;
 
 				case "√":
-
+					NormTextField.negateOp();
 					break;
 
 				case "=":
