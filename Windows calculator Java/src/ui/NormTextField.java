@@ -84,7 +84,7 @@ public class NormTextField extends JPanel {
 
 		String string = new String(c);
 		if (string.length() > MAINROW_SIZE + 1) {
-			string = string.substring(0, MAINROW_SIZE + 1);
+			string = string.substring(0, MAINROW_SIZE + 1); //почему здесь именно такое условие....
 		}
 		mainRow.setText(string);
 	}
@@ -263,22 +263,30 @@ public class NormTextField extends JPanel {
 	}
 	
 	public static void negateOp() {
-		if (Double.parseDouble(getMainRow())>0d) {
-			char[] newArray = new char[mainArray.length + 1]; // создаем новый массив на единицу длиннее
-			mainArray = newArray; // присваиваем ссылку нашего массива на новый
-			double negateD = -1* Double.parseDouble(getMainRow());
-			String negateStr = Double.toString(negateD);
-			negateStr = negateStr.indexOf(".") < 0 ? negateStr : negateStr.replaceAll("0*$", "").replaceAll("\\.$", "");
-			setMainArray(negateStr.toCharArray());
-			setMainRow(mainArray);
+		if (!mainArrayIsClear()) {
+			if (Double.parseDouble(getMainRow()) > 0d) {
+				char[] newArray = new char[mainArray.length + 1]; // создаем новый массив на единицу длиннее
+				newArray[i] = '-'; // TODO: дописать условие по запятой
+				for (int k = i; k < mainArray.length; k++) {
+					newArray[k + 1] = mainArray[k];
+				}
+				mainArray = newArray; // присваиваем ссылку нашего массива на новый
+				setMainRow(mainArray);
+			} else if (Double.parseDouble(getMainRow()) < 0d) {
+				char[] newArray = new char[mainArray.length - 1]; // создаем новый массив на единицу длиннее
+
+				for (int k = i; k < newArray.length; k++) {
+					newArray[k] = mainArray[k + 1];
+				}
+				mainArray = newArray; // присваиваем ссылку нашего массива на новый
+				setMainRow(mainArray);
+			}
+
 		} else {
-			char[] newArray = new char[mainArray.length - 1]; // создаем новый массив на единицу длиннее
-			mainArray = newArray; // присваиваем ссылку нашего массива на новый
-			double negateD = -1* Double.parseDouble(getMainRow());
+			double negateD = -1 * Double.parseDouble(getMainRow());
 			String negateStr = Double.toString(negateD);
 			negateStr = negateStr.indexOf(".") < 0 ? negateStr : negateStr.replaceAll("0*$", "").replaceAll("\\.$", "");
-			setMainArray(negateStr.toCharArray());
-			setMainRow(mainArray);
+			setMainRow(negateStr.toCharArray());
 		}
 	}
 
@@ -296,18 +304,7 @@ public class NormTextField extends JPanel {
 
 	public static void addToUpperRow(String number, String oper) {
 		StringBuilder sb = new StringBuilder(); // готовым новый билдер
-		if (mainArray.length == MAINROW_SIZE && mainArray[mainArray.length - 1] == '0' && i == mainArray.length - 1 // вот
-																													// эту
-																													// сраку
-																													// тоже
-																													// надо
-																													// переделать,
-																													// возможно
-																													// булево
-																													// условие
-																													// где-то
-																													// сделать
-				&& !upperRow.getText().equals("")) { // если основной массив сброшен,
+		if (mainArrayIsClear() && !upperRow.getText().equals("")) { // если основной массив сброшен,
 														// но в верхнем ряду что-то есть
 			sb.append(getUpperRow()); // кидаем верхний ряд в билдер
 			sb.replace(sb.length() - 3, sb.length(), oper); // добавляем туда оператор
@@ -349,6 +346,13 @@ public class NormTextField extends JPanel {
 
 	public static void clearUpperRow() {
 		upperRow.setText("");
+	}
+	
+	public static boolean mainArrayIsClear() {
+		if (mainArray.length == MAINROW_SIZE && mainArray[mainArray.length - 1] == '0' && i == mainArray.length - 1) {
+			return true;
+		} else
+			return false;
 	}
 
 }
