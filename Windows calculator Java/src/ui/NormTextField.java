@@ -19,7 +19,8 @@ public class NormTextField extends JPanel {
 	static JTextField upperRow;
 	static JTextField mainRow;
 	static char[] mainArray;
-	static int i;
+	static int i; // итератор массива текстового поля. Не рад, что связался с эрреями, потом надо
+					// переписать
 	static boolean comma;
 	static final int MAINROW_SIZE = 8;
 	static char[] memory; // здесь необходимо разобраться, как правильнее организовать массив памяти
@@ -84,7 +85,7 @@ public class NormTextField extends JPanel {
 
 		String string = new String(c);
 		if (string.length() > MAINROW_SIZE + 1) {
-			string = string.substring(0, MAINROW_SIZE + 1); //почему здесь именно такое условие....
+			string = string.substring(0, MAINROW_SIZE + 2); // берем запас под запятую и знак минус
 		}
 		mainRow.setText(string);
 	}
@@ -103,7 +104,7 @@ public class NormTextField extends JPanel {
 				if (mainArray[i] == '0') { // при этом последний символ равен нулю
 					if (c == '.') { // если вводим запятую
 						char[] newArray = new char[mainArray.length + 1]; // создаем новый массив на единицу длиннее
-						mainArray = newArray; // присваиваем ссылку нашего массива на новый
+						setMainArray(newArray); // устанавливаем новый массив в главный
 						mainArray[i] = '0'; // ставим в предпоследнее значение 0
 						mainArray[i + 1] = c; // сюда заносим вводимую нами запятую
 						comma = true; // меняем логическое значение, чтобы в следующий раз запятую не добавить
@@ -115,7 +116,7 @@ public class NormTextField extends JPanel {
 						char[] newArray = new char[mainArray.length + 1]; // создаем новый массив на единицу длиннее
 						newArray[i] = mainArray[i]; // переносим туда наше последнее значение(оно будет предпоследним)
 						newArray[i + 1] = c; // в последнее вносим запятую
-						mainArray = newArray; // присваиваем ссылку нашего массива на новый
+						setMainArray(newArray); // устанавливаем новый массив в главный
 						comma = true; // меняем логическое значение, чтобы в следующий раз запятую не добавить
 					} else { // если вводим любую цифру
 						mainArray[i - 1] = mainArray[i]; // последний символ ставим в предпоследний
@@ -131,7 +132,7 @@ public class NormTextField extends JPanel {
 							newArray[k] = mainArray[k]; // переносим все значения из старого в новый
 						}
 						newArray[newArray.length - 1] = c; // в последнее вносим запятую
-						mainArray = newArray; // присваиваем ссылку нашего массива на новый
+						setMainArray(newArray); // устанавливаем новый массив в главный
 						comma = true; // меняем логическое значение, чтобы в следующий раз запятую не добавить
 					} else {
 						// если вводить нельзя, то ничего не делаем
@@ -156,18 +157,22 @@ public class NormTextField extends JPanel {
 
 	}
 
-	public static void removeSymbol() {
+	public static void removeSymbol() { // удаление символа
 		System.out.println("mainArray.length = " + mainArray.length);
 		System.out.println("i = " + i + " mainArray[i] = " + mainArray[i]);
-		if (i == mainArray.length - 1) {
-			mainArray[i] = '0';
-		} else {
-			if (mainArray[mainArray.length - 1] == '.') {
-				char[] newArray = new char[mainArray.length - 1];
-				for (int k = i; k < newArray.length; k++) {
-					newArray[k] = mainArray[k];
+		if (i == mainArray.length - 1 || mainArray[mainArray.length - 2] == '-') { // если удаляем последний символ или
+																					// предпоследний - "-"
+			char[] newArray = new char[MAINROW_SIZE]; // сбрасываем массив к стандартному размеру
+			newArray[i] = '0'; // последний символ ставим 0
+			setMainArray(newArray); // задаем его в главный массив
+
+		} else { // если удаляем не последний символ
+			if (mainArray[mainArray.length - 1] == '.') { // если предпоследний символ - точка
+				char[] newArray = new char[mainArray.length - 1]; // делаем новый массив на 1 короче
+				for (int k = i; k < newArray.length; k++) {// бежим циклом по новому массиву
+					newArray[k] = mainArray[k]; // копируем значения из старого массива
 				}
-				mainArray = newArray;
+				setMainArray(newArray);
 				comma = false;
 			} else {
 				for (int k = mainArray.length - 1; k > i; k--) {
@@ -186,7 +191,7 @@ public class NormTextField extends JPanel {
 		for (int k = i; k < newArray.length; k++) {
 			newArray[k] = 0;
 		}
-		mainArray = newArray;
+		setMainArray(newArray);
 		i = mainArray.length - 1;
 		mainArray[i] = '0';
 		comma = false;
@@ -221,8 +226,9 @@ public class NormTextField extends JPanel {
 		// https://stackoverflow.com/questions/14984664/remove-trailing-zero-in-java
 		string = string.indexOf(".") < 0 ? string : string.replaceAll("0*$", "").replaceAll("\\.$", "");
 
-		if (string.length() > NormTextField.MAINROW_SIZE + 1) {
-			String string1 = string.substring(0, MAINROW_SIZE + 1);
+		if (string.length() > NormTextField.MAINROW_SIZE + 2) { // тут может быть прикол с переполнением, как и в
+																// текстовом поле
+			String string1 = string.substring(0, MAINROW_SIZE + 2); // но вернемся к этому потом
 			memorySet(string1);
 		} else {
 			memorySet(string);
@@ -241,7 +247,7 @@ public class NormTextField extends JPanel {
 	}
 
 	public static void resetMainArray() {
-		mainArray = new char[MAINROW_SIZE]; // array
+		setMainArray(new char[MAINROW_SIZE]);
 		mainArray[mainArray.length - 1] = '0'; // init last array element
 		i = mainArray.length - 1; // arraylist iterator
 		comma = false;
@@ -261,39 +267,47 @@ public class NormTextField extends JPanel {
 			memorySet(string);
 		}
 	}
-	
+
 	public static void negateOp() {
 		if (!mainArrayIsClear()) {
 			if (Double.parseDouble(getMainRow()) > 0d) {
 				char[] newArray = new char[mainArray.length + 1]; // создаем новый массив на единицу длиннее
-				newArray[i] = '-'; // TODO: дописать условие по запятой
-				for (int k = i; k < mainArray.length; k++) {
+				for (int k = 0; k < mainArray.length; k++) {
 					newArray[k + 1] = mainArray[k];
 				}
-				mainArray = newArray; // присваиваем ссылку нашего массива на новый
+				newArray[i] = '-';
+				setMainArray(newArray);
 				setMainRow(mainArray);
+				System.out.println("длина массива равна " + mainArray.length + ", а И = " + i);
 			} else if (Double.parseDouble(getMainRow()) < 0d) {
-				char[] newArray = new char[mainArray.length - 1]; // создаем новый массив на единицу длиннее
-
+				char[] newArray = new char[mainArray.length - 1]; // создаем новый массив на единицу короче
+				if (i > 0) {
+					newArray[i - 1] = 0;
+				} else {
+					newArray[i] = 0;
+				}
 				for (int k = i; k < newArray.length; k++) {
 					newArray[k] = mainArray[k + 1];
 				}
-				mainArray = newArray; // присваиваем ссылку нашего массива на новый
+				setMainArray(newArray);
 				setMainRow(mainArray);
 			}
 
 		} else {
-			double negateD = -1 * Double.parseDouble(getMainRow());
-			String negateStr = Double.toString(negateD);
-			negateStr = negateStr.indexOf(".") < 0 ? negateStr : negateStr.replaceAll("0*$", "").replaceAll("\\.$", "");
-			setMainRow(negateStr.toCharArray());
+			if (Double.parseDouble(getMainRow()) != 0d) { // TODO: нашел бажок (когда массив сброшен и
+				// число занимает всё поле, тогда не остается места для замены знака),
+				// первая мысль говорит, что можно это обойти ограничением мейнроу+3
+				double negateD = -1 * Double.parseDouble(getMainRow());
+				String negateStr = Double.toString(negateD);
+				negateStr = negateStr.indexOf(".") < 0 ? negateStr
+						: negateStr.replaceAll("0*$", "").replaceAll("\\.$", "");
+				setMainRow(negateStr.toCharArray());
+			}
 		}
 	}
 
-	public static void addEquals(String str) { // честно говоря, это не метод, а ёбаный стыд.
-		// закончу прогу и обязательно постараюсь переделать ссаные костыли
+	public static void addEquals(String str) { // TODO возможно, приспособим под квадратный корень и дробь
 		StringBuilder sb = new StringBuilder();
-
 		sb.append(getUpperRow());
 		String upperRowNew = new String(sb);
 		calculatorStack.add(str); // добавляем число в стек
@@ -305,7 +319,7 @@ public class NormTextField extends JPanel {
 	public static void addToUpperRow(String number, String oper) {
 		StringBuilder sb = new StringBuilder(); // готовым новый билдер
 		if (mainArrayIsClear() && !upperRow.getText().equals("")) { // если основной массив сброшен,
-														// но в верхнем ряду что-то есть
+			// но в верхнем ряду что-то есть
 			sb.append(getUpperRow()); // кидаем верхний ряд в билдер
 			sb.replace(sb.length() - 3, sb.length(), oper); // добавляем туда оператор
 			calculatorStack.remove(calculatorStack.size() - 1); // удаляем последний элемент стека
@@ -324,6 +338,17 @@ public class NormTextField extends JPanel {
 			upperRow.setText(upperRowNew);
 		}
 
+	}
+
+	public static void oneToX() {
+		StringBuilder sb = new StringBuilder(); // готовым новый билдер
+		sb.append(getUpperRow()); // кидаем верхний ряд в билдер
+		sb.append("1 / "); //
+		calculatorStack.add("1");
+		sb.append(getMainRow());
+		String upperRowNew = new String(sb); // зводим строку из нашего билдера
+		calculatorStack.add("/");
+		upperRow.setText(upperRowNew);
 	}
 
 	public static String getUpperRow() {
@@ -347,7 +372,7 @@ public class NormTextField extends JPanel {
 	public static void clearUpperRow() {
 		upperRow.setText("");
 	}
-	
+
 	public static boolean mainArrayIsClear() {
 		if (mainArray.length == MAINROW_SIZE && mainArray[mainArray.length - 1] == '0' && i == mainArray.length - 1) {
 			return true;

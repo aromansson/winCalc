@@ -63,7 +63,8 @@ public class GreyButton extends JButton {
 					NormTextField.resetMainArray();
 					break;
 				case "±":
-					NormTextField.negateOp(); //меняем знак у 
+					NormTextField.negateOp();
+					NormTextField.resetMainArray();
 					break;
 
 //				case "√":
@@ -74,8 +75,9 @@ public class GreyButton extends JButton {
 //					NormTextField.resetMainArray();
 //					break;
 
-				case "√":
-					NormTextField.negateOp();
+				case "1/x":
+					NormTextField.oneToX();
+					NormTextField.resetMainArray();
 					break;
 
 				case "=":
