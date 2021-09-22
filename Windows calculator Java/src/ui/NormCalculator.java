@@ -221,9 +221,11 @@ public class NormCalculator {
 				case KeyEvent.VK_ESCAPE:
 					NormTextField.clearCE();
 					NormTextField.clearUpperRow();
+					NormTextField.mainRowFontChanger();
 					break;
 				case KeyEvent.VK_BACK_SPACE:
 					NormTextField.removeSymbol();
+					NormTextField.mainRowFontChanger();
 					break;
 				case KeyEvent.VK_SLASH:
 					NormTextField.addToUpperRow(NormTextField.getMainRow(), " / ");
