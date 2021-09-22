@@ -30,10 +30,12 @@ public class GreyButton extends JButton {
 				switch (e.getComponent().getName()) {
 				case "←":
 					NormTextField.removeSymbol();
+					NormTextField.mainRowFontChanger();
 					break;
 
 				case "CE":
 					NormTextField.clearCE();
+					NormTextField.mainRowFontChanger();
 					break;
 
 				case "C":
@@ -41,6 +43,7 @@ public class GreyButton extends JButton {
 					NormTextField.clearUpperRow();
 					NormTextField.calculatorStack.clear();
 					RPN.clear();
+					NormTextField.mainRowFontChanger();
 					break;
 
 				case "+":
@@ -90,6 +93,7 @@ public class GreyButton extends JButton {
 					NormTextField.setMainRow(tempString.toCharArray());
 					RPN.clear();
 					NormTextField.calculatorStack.clear();
+					NormTextField.mainRowFontChanger();
 					break;
 
 				default:

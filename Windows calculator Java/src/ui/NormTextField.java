@@ -21,7 +21,7 @@ public class NormTextField extends JPanel {
 	static char[] mainArray;
 	static int i;
 	static boolean comma;
-	static final int MAINROW_SIZE = 8;
+	static final int MAINROW_SIZE = 17;
 	static char[] memory; // здесь необходимо разобраться, как правильнее организовать массив памяти
 	static ArrayList<String> calculatorStack;
 
@@ -152,6 +152,7 @@ public class NormTextField extends JPanel {
 		}
 
 		setMainRow(mainArray);
+		mainRowFontChanger();
 		System.out.println("длина массива равна " + mainArray.length + ", а И = " + i);
 
 	}
@@ -353,6 +354,29 @@ public class NormTextField extends JPanel {
 			return true;
 		} else
 			return false;
+	}
+	
+	public static void mainRowFontChanger() {
+		int x = 0; //переменная для счета символов
+		StringBuilder sbm = new StringBuilder();
+		for (int k = 0; k < mainRow.getText().length(); k++) {
+			if ((int) mainRow.getText().charAt(k) != 0) {
+				sbm.append(mainRow.getText().charAt(k));
+			}
+		}
+		String string = new String(sbm);
+		x = string.length();
+		if (x <= 12) {
+			mainRow.setFont(new Font("Consolas", Font.PLAIN, 24));
+		}else if (x > 12 && x <= 15) {
+			mainRow.setFont(new Font("Consolas", Font.PLAIN, 21));
+		}else {
+			mainRow.setFont(new Font("Consolas", Font.PLAIN, 16));
+		}
+		//если 13 элементов, то размер шрифта уменьшается
+		//если 17 - тоже уменьшается
+		//макс размер- 19 (с минусом и запятой, без них 16 или 17
+		
 	}
 
 }
