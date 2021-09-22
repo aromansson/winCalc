@@ -28,6 +28,7 @@ public class OpaqueButton extends JButton {
 				case "MC":
 					NormTextField.memoryClear();
 					NormTextField.resetMainArray();
+					NormTextField.memoIndicator();
 					break;
 				case "MR":
 					NormTextField.memoryRecall();
@@ -36,13 +37,17 @@ public class OpaqueButton extends JButton {
 				case "MS":
 					NormTextField.memorySet(NormTextField.mainRow.getText());
 					NormTextField.resetMainArray();
+					NormTextField.memoIndicator();
 					break;
 				case "M+":
 					NormTextField.memoryPlus(NormTextField.mainRow.getText());
 					NormTextField.resetMainArray();
+					NormTextField.memoIndicator();
 					break;
 				case "M-":
 					NormTextField.memoryMinus(NormTextField.mainRow.getText());
+					NormTextField.resetMainArray();
+					NormTextField.memoIndicator();
 					break;
 
 				default:
@@ -50,10 +55,6 @@ public class OpaqueButton extends JButton {
 				}
 			}
 		});
-		
-		//надо допилить знак +/- и поставить переключатель как для запятой, чтобы 
-		//при наличии знака "минус" у числа знак операции менялся на противоположный
-		//хотя, если разбирать стек, может там это реализовать.
 	}
 
 }

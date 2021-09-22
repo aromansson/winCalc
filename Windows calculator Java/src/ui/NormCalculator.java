@@ -165,6 +165,7 @@ public class NormCalculator {
 					NormTextField.setMainRow(tempString.toCharArray());
 					RPN.clear();
 					NormTextField.calculatorStack.clear();
+					NormTextField.mainRowFontChanger();
 					break;
 				case KeyEvent.VK_DECIMAL:
 					NormTextField.addSymbol('.');

@@ -67,7 +67,7 @@ public class GreyButton extends JButton {
 					break;
 				case "±":
 					NormTextField.negateOp();
-					NormTextField.resetMainArray();
+//					NormTextField.resetMainArray();
 					break;
 
 //				case "√":

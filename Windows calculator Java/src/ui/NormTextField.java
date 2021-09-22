@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -25,6 +26,7 @@ public class NormTextField extends JPanel {
 	static final int MAINROW_SIZE = 17;
 	static char[] memory; // здесь необходимо разобраться, как правильнее организовать массив памяти
 	static ArrayList<String> calculatorStack;
+	static JLabel memo = new JLabel("");
 
 	NormTextField() {
 		iniTextField();
@@ -48,7 +50,7 @@ public class NormTextField extends JPanel {
 
 		AbstractBorder brdr = new TextBubbleBorder(Color.gray, 1, 4, 0);
 		textPanel.setBorder(brdr);
-
+//надо флоу лейаут
 		textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
 		upperRow = new JTextField(SwingConstants.RIGHT);
@@ -64,6 +66,7 @@ public class NormTextField extends JPanel {
 		mainRow.setFocusable(false);
 		mainRow.setBorder(null);
 		textPanel.add(upperRow);
+		textPanel.add(memo);
 		textPanel.add(mainRow);
 		return textPanel;
 
@@ -278,7 +281,7 @@ public class NormTextField extends JPanel {
 				}
 				newArray[i] = '-';
 				setMainArray(newArray);
-				setMainRow(mainArray);
+				setMainRow(newArray);
 				System.out.println("длина массива равна " + mainArray.length + ", а И = " + i);
 			} else if (Double.parseDouble(getMainRow()) < 0d) {
 				char[] newArray = new char[mainArray.length - 1]; // создаем новый массив на единицу короче
@@ -292,6 +295,7 @@ public class NormTextField extends JPanel {
 				}
 				setMainArray(newArray);
 				setMainRow(mainArray);
+				mainRowFontChanger();
 			}
 
 		} else {
@@ -380,9 +384,9 @@ public class NormTextField extends JPanel {
 		} else
 			return false;
 	}
-	
+
 	public static void mainRowFontChanger() {
-		int x = 0; //переменная для счета символов
+		int x = 0; // переменная для счета символов
 		StringBuilder sbm = new StringBuilder();
 		for (int k = 0; k < mainRow.getText().length(); k++) {
 			if ((int) mainRow.getText().charAt(k) != 0) {
@@ -393,15 +397,23 @@ public class NormTextField extends JPanel {
 		x = string.length();
 		if (x <= 12) {
 			mainRow.setFont(new Font("Consolas", Font.PLAIN, 24));
-		}else if (x > 12 && x <= 15) {
+		} else if (x > 12 && x <= 15) {
 			mainRow.setFont(new Font("Consolas", Font.PLAIN, 21));
-		}else {
+		} else {
 			mainRow.setFont(new Font("Consolas", Font.PLAIN, 16));
 		}
-		//если 13 элементов, то размер шрифта уменьшается
-		//если 17 - тоже уменьшается
-		//макс размер- 19 (с минусом и запятой, без них 16 или 17
-		
+		// если 13 элементов, то размер шрифта уменьшается
+		// если 17 - тоже уменьшается
+		// макс размер- 19 (с минусом и запятой, без них 16 или 17
+
 	}
 
+	public static void memoIndicator() {
+		double d = Double.parseDouble(new String(memory));
+		if (d != 0d) {
+			memo.setText("M");
+		} else {
+			memo.setText("");
+		}
+	}
 }
