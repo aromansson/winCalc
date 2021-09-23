@@ -3,7 +3,6 @@ package ui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -47,14 +46,7 @@ public class NormTextField extends JPanel {
 
 		textPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		textPanel.setBackground(Color.WHITE);
-		
-		//добавлено сегодня
-		JPanel textPanel1 = new JPanel();
-		JPanel textPanel2 = new JPanel();
-	//	textPanel1.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-		textPanel2.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
-//конец добавки сегодня
-		
+
 		AbstractBorder brdr = new TextBubbleBorder(Color.gray, 1, 4, 0);
 		textPanel.setBorder(brdr);
 
@@ -66,7 +58,7 @@ public class NormTextField extends JPanel {
 		upperRow.setFont(new Font("Consolas", Font.PLAIN, 12));
 		upperRow.setBorder(null);
 		upperRow.setFocusable(false);
-		
+
 		memo = new JLabel(" ");
 		memo.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -75,20 +67,11 @@ public class NormTextField extends JPanel {
 		mainRow.setHorizontalAlignment(JTextField.RIGHT);
 		mainRow.setFocusable(false);
 		mainRow.setBorder(null);
-		
-		//добавлено сегодня
-		textPanel.add(textPanel1);
-		textPanel.add(textPanel2);
-		textPanel1.add(upperRow);
-		textPanel2.add(memo);
-		textPanel2.add(mainRow);
-		
-		
-		//конец добавки сегодня
-		
-//		textPanel.add(upperRow);
-//		mainRow.add(memo);
-//		textPanel.add(mainRow);
+
+		textPanel.add(upperRow);
+		textPanel.add(memo);
+		textPanel.add(mainRow);
+
 		return textPanel;
 
 	}
@@ -434,7 +417,7 @@ public class NormTextField extends JPanel {
 		if (d != 0d) {
 			memo.setText("M");
 		} else {
-			memo.setText("");
+			memo.setText(" ");
 		}
 	}
 }

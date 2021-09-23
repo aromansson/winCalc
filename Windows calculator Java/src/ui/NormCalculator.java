@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import arithmetic.RPN;
@@ -20,6 +21,7 @@ public class NormCalculator {
 	GridBagLayout gbl = new GridBagLayout();
 	NormTextField field = new NormTextField(); // поле для ввода цифр обычного калькулятора
 	MenuBar menuBar; // экземпляр класса
+	JLabel label = new JLabel("F");
 
 	// инициализируем все кнопки
 	WhiteButton button1 = new WhiteButton("1");
@@ -62,8 +64,10 @@ public class NormCalculator {
 		panel.setBackground(new Color(217, 228, 241));
 		// (https://stackoverflow.com/questions/5854005/setting-horizontal-and-vertical-margins)
 		Constraints c = new Constraints();
-		gbl.setConstraints(field.iniTextField(), c.get());
-		panel.add(field.textPanel);
+		// gbl.setConstraints(field.iniTextField(), c.get());
+		panel.add(label);
+		panel.add(field.textPanel, c.get());
+//		panel.add(field.textPanel);
 
 		panel.add(buttonMC, c.nextRow());
 		panel.add(buttonMR, c.nextButton());
