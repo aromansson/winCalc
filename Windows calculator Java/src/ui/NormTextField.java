@@ -3,6 +3,7 @@ package ui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -20,13 +21,12 @@ public class NormTextField extends JPanel {
 	static JTextField upperRow;
 	static JTextField mainRow;
 	static char[] mainArray;
-	static int i; // итератор массива текстового поля. Не рад, что связался с эрреями, потом надо
-					// переписать
+	static int i; // итератор массива текстового поля. Зря связался с эрреями, надо переделать
 	static boolean comma;
 	static final int MAINROW_SIZE = 17;
 	static char[] memory; // здесь необходимо разобраться, как правильнее организовать массив памяти
 	static ArrayList<String> calculatorStack;
-	static JLabel memo = new JLabel("");
+	static JLabel memo;
 
 	NormTextField() {
 		iniTextField();
@@ -47,10 +47,17 @@ public class NormTextField extends JPanel {
 
 		textPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		textPanel.setBackground(Color.WHITE);
-
+		
+		//добавлено сегодня
+		JPanel textPanel1 = new JPanel();
+		JPanel textPanel2 = new JPanel();
+	//	textPanel1.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+		textPanel2.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
+//конец добавки сегодня
+		
 		AbstractBorder brdr = new TextBubbleBorder(Color.gray, 1, 4, 0);
 		textPanel.setBorder(brdr);
-//надо флоу лейаут
+
 		textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
 		upperRow = new JTextField(SwingConstants.RIGHT);
@@ -59,15 +66,29 @@ public class NormTextField extends JPanel {
 		upperRow.setFont(new Font("Consolas", Font.PLAIN, 12));
 		upperRow.setBorder(null);
 		upperRow.setFocusable(false);
+		
+		memo = new JLabel(" ");
+		memo.setHorizontalAlignment(SwingConstants.LEFT);
 
 		mainRow = new JTextField("0", SwingConstants.RIGHT);
 		mainRow.setFont(new Font("Consolas", Font.PLAIN, 23));
 		mainRow.setHorizontalAlignment(JTextField.RIGHT);
 		mainRow.setFocusable(false);
 		mainRow.setBorder(null);
-		textPanel.add(upperRow);
-		textPanel.add(memo);
-		textPanel.add(mainRow);
+		
+		//добавлено сегодня
+		textPanel.add(textPanel1);
+		textPanel.add(textPanel2);
+		textPanel1.add(upperRow);
+		textPanel2.add(memo);
+		textPanel2.add(mainRow);
+		
+		
+		//конец добавки сегодня
+		
+//		textPanel.add(upperRow);
+//		mainRow.add(memo);
+//		textPanel.add(mainRow);
 		return textPanel;
 
 	}
