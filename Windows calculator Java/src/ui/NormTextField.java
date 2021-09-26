@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -17,6 +18,11 @@ import javax.swing.border.EmptyBorder;
 public class NormTextField extends JPanel {
 
 	JPanel textPanel;
+	JPanel upperPanel;
+	JPanel mainPanel;
+
+	private static JLabel memo;
+
 	static JTextField upperRow;
 	static JTextField mainRow;
 	static char[] mainArray;
@@ -25,7 +31,6 @@ public class NormTextField extends JPanel {
 	static final int MAINROW_SIZE = 17;
 	static char[] memory; // здесь необходимо разобраться, как правильнее организовать массив памяти
 	static ArrayList<String> calculatorStack;
-	static JLabel memo;
 
 	NormTextField() {
 		iniTextField();
@@ -43,14 +48,24 @@ public class NormTextField extends JPanel {
 		comma = false; // there is no comma in textfield
 
 		textPanel = new JPanel();
-
 		textPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		textPanel.setBackground(Color.WHITE);
-
 		AbstractBorder brdr = new TextBubbleBorder(Color.gray, 1, 4, 0);
 		textPanel.setBorder(brdr);
-
 		textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+
+		upperPanel = new JPanel();
+		upperPanel.setBorder(null);
+		upperPanel.setLayout(new BoxLayout(upperPanel, BoxLayout.LINE_AXIS));
+
+		mainPanel = new JPanel();
+		mainPanel.setBorder(null);
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+		mainPanel.setBackground(Color.WHITE);
+
+		memo = new JLabel("M"); // добавляем метку для памяти
+		memo.setFont(new Font("Consolas", Font.PLAIN, 18)); // делаем шрифт
+		memo.setForeground(Color.WHITE); // белого цвета
 
 		upperRow = new JTextField(SwingConstants.RIGHT);
 		upperRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, upperRow.getMinimumSize().height));
@@ -59,18 +74,18 @@ public class NormTextField extends JPanel {
 		upperRow.setBorder(null);
 		upperRow.setFocusable(false);
 
-		memo = new JLabel(" ");
-		memo.setHorizontalAlignment(SwingConstants.LEFT);
-
 		mainRow = new JTextField("0", SwingConstants.RIGHT);
 		mainRow.setFont(new Font("Consolas", Font.PLAIN, 23));
+		mainRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, mainRow.getMinimumSize().height));
 		mainRow.setHorizontalAlignment(JTextField.RIGHT);
 		mainRow.setFocusable(false);
 		mainRow.setBorder(null);
 
-		textPanel.add(upperRow);
-		textPanel.add(memo);
-		textPanel.add(mainRow);
+		textPanel.add(upperPanel, BorderLayout.NORTH);
+		textPanel.add(mainPanel);
+		upperPanel.add(upperRow);
+		mainPanel.add(memo);
+		mainPanel.add(mainRow);
 
 		return textPanel;
 
@@ -106,6 +121,7 @@ public class NormTextField extends JPanel {
 	}
 
 	public static void addSymbol(char c) {
+		memoIndicator();
 		try {
 			if (i == mainArray.length - 1) { // если вводим в последний символ массива
 				if (mainArray[i] == '0') { // при этом последний символ равен нулю
@@ -166,6 +182,7 @@ public class NormTextField extends JPanel {
 	}
 
 	public static void removeSymbol() { // удаление символа
+		memoIndicator();
 		System.out.println("mainArray.length = " + mainArray.length);
 		System.out.println("i = " + i + " mainArray[i] = " + mainArray[i]);
 		if (i == mainArray.length - 1 || mainArray[mainArray.length - 2] == '-') { // если удаляем последний символ или
@@ -412,12 +429,12 @@ public class NormTextField extends JPanel {
 
 	}
 
-	public static void memoIndicator() {
+	public static void memoIndicator() { // чтобы текстовое поле не расползалось
 		double d = Double.parseDouble(new String(memory));
-		if (d != 0d) {
-			memo.setText("M");
+		if (d != 0d) { // если значение в памяти не равно 0
+			memo.setForeground(Color.BLACK); // делаем шрифт видимым (черным)
 		} else {
-			memo.setText(" ");
+			memo.setForeground(Color.WHITE); // иначе оставляем белым
 		}
 	}
 }

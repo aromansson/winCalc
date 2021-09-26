@@ -21,7 +21,7 @@ public class NormCalculator {
 	GridBagLayout gbl = new GridBagLayout();
 	NormTextField field = new NormTextField(); // поле для ввода цифр обычного калькулятора
 	MenuBar menuBar; // экземпляр класса
-	JLabel label = new JLabel("F");
+	static JLabel memo = new JLabel(" ");
 
 	// инициализируем все кнопки
 	WhiteButton button1 = new WhiteButton("1");
@@ -58,14 +58,13 @@ public class NormCalculator {
 	}
 
 	public void initNormCalculator() {
-
 		panel.setLayout(gbl);
 		panel.setBorder(BorderFactory.createEmptyBorder(13, 12, 14, 12)); // въебениваем поля по краям панели
 		panel.setBackground(new Color(217, 228, 241));
 		// (https://stackoverflow.com/questions/5854005/setting-horizontal-and-vertical-margins)
 		Constraints c = new Constraints();
 		// gbl.setConstraints(field.iniTextField(), c.get());
-		panel.add(label);
+		panel.add(memo);
 		panel.add(field.textPanel, c.get());
 //		panel.add(field.textPanel);
 
