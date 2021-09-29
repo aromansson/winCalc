@@ -347,7 +347,7 @@ public class NormTextField extends JPanel {
 		if (mainArrayIsClear() && !upperRow.getText().equals("")) { // если основной массив сброшен,
 			// но в верхнем ряду что-то есть
 			sb.append(getUpperRow()); // кидаем верхний ряд в билдер
-			sb.replace(sb.length() - 3, sb.length(), oper); // добавляем туда оператор
+			sb.replace(sb.length() - 3, sb.length(), oper); // заменяем там оператор
 			calculatorStack.remove(calculatorStack.size() - 1); // удаляем последний элемент стека
 			calculatorStack.add(oper.substring(oper.length() - 2, oper.length() - 1)); // добавляем знак заново
 																						// (возможно, тут перепишу на
@@ -364,6 +364,30 @@ public class NormTextField extends JPanel {
 			upperRow.setText(upperRowNew);
 		}
 
+	}
+
+	public static void addSignToUpperRow(String sign) {
+		StringBuilder sb = new StringBuilder(); // готовым новый билдер
+		String number = getMainRow();
+		char x = upperRow.getText().charAt(upperRow.getText().length() - 1);
+		if (x == '-' || x == '+' || x == '*' || x == '/' || x == '^') {
+			sb.append(getUpperRow());
+			sb.replace(sb.length() - 2, sb.length(), sign); // заменяем там оператор
+			calculatorStack.remove(calculatorStack.size() - 1); // удаляем последний элемент стека
+			calculatorStack.add(sign); // добавляем знак заново
+			// (возможно, тут перепишу на
+			// свич кейз)
+			String upperRowNew = new String(sb); // заводим строку из нашего билдера
+			upperRow.setText(upperRowNew); // кидаем строку обратно в верхний ряд
+		} else {
+			sb.append(getUpperRow()); // кидаем верхний ряд в билдер
+			sb.append(number); // кидаем число из массива в билдер
+			String upperRowNew = new String(sb); // зводим строку из нашего билдера
+			calculatorStack.add(getMainRow()); // добавляем число в стек
+			upperRowNew += " " + sign + " "; // добавляем математический оператор в строку
+			calculatorStack.add(sign);
+			upperRow.setText(upperRowNew);
+		}
 	}
 
 	public static void oneToX() {
