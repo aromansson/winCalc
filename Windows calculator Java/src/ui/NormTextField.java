@@ -369,7 +369,13 @@ public class NormTextField extends JPanel {
 	public static void addSignToUpperRow(String sign) {
 		StringBuilder sb = new StringBuilder(); // готовым новый билдер
 		String number = getMainRow();
-		char x = upperRow.getText().charAt(upperRow.getText().length() - 1);
+		System.out.println(getUpperRow());
+		char x;
+		if(!(getUpperRow() == null)) {
+			x = upperRow.getText().charAt(upperRow.getText().length() - 1);
+		} else {
+			x = ' ';
+		}
 		if (x == '-' || x == '+' || x == '*' || x == '/' || x == '^') {
 			sb.append(getUpperRow());
 			sb.replace(sb.length() - 2, sb.length(), sign); // заменяем там оператор

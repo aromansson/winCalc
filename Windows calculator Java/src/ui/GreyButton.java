@@ -52,12 +52,14 @@ public class GreyButton extends JButton {
 					break;
 
 				case "-":
-					NormTextField.addToUpperRow(NormTextField.getMainRow(), " - ");
+				//	NormTextField.addToUpperRow(NormTextField.getMainRow(), " - ");
+					NormTextField.addSignToUpperRow ("*");
 					NormTextField.resetMainArray();
 					break;
 
 				case "*":
-					NormTextField.addToUpperRow(NormTextField.getMainRow(), " * ");
+					//NormTextField.addToUpperRow(NormTextField.getMainRow(), " * ");
+					NormTextField.addSignToUpperRow ("*");
 					NormTextField.resetMainArray();
 					break;
 
