@@ -371,8 +371,8 @@ public class NormTextField extends JPanel {
 		String number = getMainRow();
 		System.out.println(getUpperRow());
 		char x;
-		if(!(getUpperRow() == null)) {
-			x = upperRow.getText().charAt(upperRow.getText().length() - 1);
+		if (getUpperRow().length() > 0) {
+			x = getUpperRow().charAt(getUpperRow().length() - 2);
 		} else {
 			x = ' ';
 		}
