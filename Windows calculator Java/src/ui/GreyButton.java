@@ -53,7 +53,7 @@ public class GreyButton extends JButton {
 
 				case "-":
 				//	NormTextField.addToUpperRow(NormTextField.getMainRow(), " - ");
-					NormTextField.addSignToUpperRow ("*");
+					NormTextField.addSignToUpperRow ("-");
 					NormTextField.resetMainArray();
 					break;
 

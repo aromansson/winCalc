@@ -368,24 +368,30 @@ public class NormTextField extends JPanel {
 
 	public static void addSignToUpperRow(String sign) {
 		StringBuilder sb = new StringBuilder(); // готовым новый билдер
-		String number = getMainRow();
-		System.out.println(getUpperRow());
+		String number = getMainRow(); //берем значение главного ряда калькулятора
 		char x;
-		if (getUpperRow().length() > 0) {
-			x = getUpperRow().charAt(getUpperRow().length() - 2);
-		} else {
-			x = ' ';
-		}
-		if (x == '-' || x == '+' || x == '*' || x == '/' || x == '^') {
-			sb.append(getUpperRow());
-			sb.replace(sb.length() - 2, sb.length(), sign); // заменяем там оператор
-			calculatorStack.remove(calculatorStack.size() - 1); // удаляем последний элемент стека
-			calculatorStack.add(sign); // добавляем знак заново
-			// (возможно, тут перепишу на
-			// свич кейз)
-			String upperRowNew = new String(sb); // заводим строку из нашего билдера
-			upperRow.setText(upperRowNew); // кидаем строку обратно в верхний ряд
-		} else {
+		if (mainArrayIsClear() && !upperRow.getText().equals("")) { // если основной массив сброшен,
+			// но в верхнем ряду что-то есть
+			if (getUpperRow().length() > 2) {
+				x = getUpperRow().charAt(getUpperRow().length() - 2);
+			} else {
+				x = ' ';
+			}
+			if (x == '-' || x == '+' || x == '*' || x == '/') {
+				sb.append(getUpperRow()); // кидаем верхний ряд в билдер
+				sb.replace(sb.length() - 3, sb.length(), " " + sign + " "); // заменяем там оператор
+				calculatorStack.remove(calculatorStack.size() - 1); // удаляем последний элемент стека
+				calculatorStack.add(sign); // добавляем знак заново
+				String upperRowNew = new String(sb); // заводим строку из нашего билдера
+				upperRow.setText(upperRowNew); // кидаем строку обратно в верхний ряд
+			}else {
+				sb.append(getUpperRow()); // кидаем верхний ряд в билдер
+				sb.append(" " + sign + " "); // кидаем верхний ряд в билдер
+				calculatorStack.add(sign); // добавляем знак в стэк
+				String upperRowNew = new String(sb); // заводим строку из нашего билдера
+				upperRow.setText(upperRowNew); // кидаем строку обратно в верхний ряд
+			}
+		} else { // если массив не сброшен
 			sb.append(getUpperRow()); // кидаем верхний ряд в билдер
 			sb.append(number); // кидаем число из массива в билдер
 			String upperRowNew = new String(sb); // зводим строку из нашего билдера
