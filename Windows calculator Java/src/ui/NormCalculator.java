@@ -174,19 +174,19 @@ public class NormCalculator {
 					NormTextField.addSymbol('.');
 					break;
 				case KeyEvent.VK_ADD:
-					NormTextField.addToUpperRow(NormTextField.getMainRow(), " + ");
+					NormTextField.addSignToUpperRow("+");
 					NormTextField.resetMainArray();
 					break;
 				case KeyEvent.VK_SUBTRACT:
-					NormTextField.addToUpperRow(NormTextField.getMainRow(), " - ");
+					NormTextField.addSignToUpperRow("-");
 					NormTextField.resetMainArray();
 					break;
 				case KeyEvent.VK_MULTIPLY:
-					NormTextField.addToUpperRow(NormTextField.getMainRow(), " * ");
+					NormTextField.addSignToUpperRow("*");
 					NormTextField.resetMainArray();
 					break;
 				case KeyEvent.VK_DIVIDE:
-					NormTextField.addToUpperRow(NormTextField.getMainRow(), " / ");
+					NormTextField.addSignToUpperRow("/");
 					NormTextField.resetMainArray();
 					break;
 				case KeyEvent.VK_9:
@@ -232,11 +232,11 @@ public class NormCalculator {
 					NormTextField.mainRowFontChanger();
 					break;
 				case KeyEvent.VK_SLASH:
-					NormTextField.addToUpperRow(NormTextField.getMainRow(), " / ");
+					NormTextField.addSignToUpperRow("/");
 					NormTextField.resetMainArray();
 					break;
 				case KeyEvent.VK_MINUS:
-					NormTextField.addToUpperRow(NormTextField.getMainRow(), " - ");
+					NormTextField.addSignToUpperRow("+");
 					NormTextField.resetMainArray();
 					break;
 

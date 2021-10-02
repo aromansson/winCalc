@@ -332,7 +332,7 @@ public class NormTextField extends JPanel {
 		}
 	}
 
-	public static void addEquals(String str) { // TODO возможно, приспособим под квадратный корень и дробь
+	public static void addEquals(String str) { // TODO пофиксить, чтобы после дроби правильно считалось
 		StringBuilder sb = new StringBuilder();
 		sb.append(getUpperRow());
 		String upperRowNew = new String(sb);
@@ -368,7 +368,7 @@ public class NormTextField extends JPanel {
 
 	public static void addSignToUpperRow(String sign) {
 		StringBuilder sb = new StringBuilder(); // готовым новый билдер
-		String number = getMainRow(); //берем значение главного ряда калькулятора
+		String number = getMainRow(); // берем значение главного ряда калькулятора
 		char x;
 		if (mainArrayIsClear() && !upperRow.getText().equals("")) { // если основной массив сброшен,
 			// но в верхнем ряду что-то есть
@@ -384,7 +384,7 @@ public class NormTextField extends JPanel {
 				calculatorStack.add(sign); // добавляем знак заново
 				String upperRowNew = new String(sb); // заводим строку из нашего билдера
 				upperRow.setText(upperRowNew); // кидаем строку обратно в верхний ряд
-			}else {
+			} else {
 				sb.append(getUpperRow()); // кидаем верхний ряд в билдер
 				sb.append(" " + sign + " "); // кидаем верхний ряд в билдер
 				calculatorStack.add(sign); // добавляем знак в стэк
@@ -405,12 +405,20 @@ public class NormTextField extends JPanel {
 	public static void oneToX() {
 		StringBuilder sb = new StringBuilder(); // готовым новый билдер
 		sb.append(getUpperRow()); // кидаем верхний ряд в билдер
-		sb.append("1 / "); //
+		sb.append("1 / " + getMainRow()); // добавляем в билдер дробь
 		calculatorStack.add("1");
-		sb.append(getMainRow());
 		String upperRowNew = new String(sb); // зводим строку из нашего билдера
 		calculatorStack.add("/");
+		calculatorStack.add(getMainRow());
 		upperRow.setText(upperRowNew);
+	}
+
+	public static void squareRoot() {
+		double square = Math.sqrt(Double.parseDouble(getMainRow()));
+		char[] sqChar = Double.toString(square).toCharArray();
+		setMainRow(sqChar);
+		addToUpperRow(getMainRow());
+		resetMainArray();
 	}
 
 	public static String getUpperRow() {
