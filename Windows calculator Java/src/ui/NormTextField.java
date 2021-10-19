@@ -334,11 +334,24 @@ public class NormTextField extends JPanel {
 
 	public static void addEquals(String str) { // TODO пофиксить, чтобы после дроби правильно считалось
 		StringBuilder sb = new StringBuilder();
-		sb.append(getUpperRow());
-		String upperRowNew = new String(sb);
-		calculatorStack.add(str); // добавляем число в стек
-		upperRowNew = upperRowNew + str;
-		upperRow.setText(upperRowNew);
+		if (mainArrayIsClear()) {
+//			sb.append(getUpperRow());
+//			String upperRowNew = new String(sb);
+//			calculatorStack.add(str); // добавляем число в стек
+//			upperRowNew = upperRowNew + str;
+//			upperRow.setText(upperRowNew);
+		} else {
+			sb.append(getUpperRow());
+			String upperRowNew = new String(sb);
+			calculatorStack.add(str); // добавляем число в стек
+			upperRowNew = upperRowNew + str;
+			upperRow.setText(upperRowNew);
+//			String upperRowNew = new String(sb);
+//			calculatorStack.add(str); // добавляем число в стек
+//			upperRowNew = upperRowNew + str;
+//			upperRow.setText(upperRowNew);
+			
+		}
 
 	}
 
@@ -417,7 +430,7 @@ public class NormTextField extends JPanel {
 		double square = Math.sqrt(Double.parseDouble(getMainRow()));
 		char[] sqChar = Double.toString(square).toCharArray();
 		setMainRow(sqChar);
-		addToUpperRow(getMainRow());
+//		addToUpperRow(getMainRow());
 		resetMainArray();
 	}
 
